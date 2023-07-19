@@ -1,0 +1,491 @@
+@use "sass:list";
+@use "sass:map";
+@use "sass:string";
+
+
+// Font Face
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+    $src: null;
+    $extmods: (eot: "?",
+        svg: "#" + str-replace($name, " ", "_"),
+    );
+    $formats: (otf: "opentype",
+        ttf: "truetype",
+    );
+
+    @each $ext in $exts {
+        $extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+        $format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+        $src: append($src, url(quote($path + "." + $extmod)) format(quote($format)),
+        comma);
+    }
+
+    @font-face {
+        font-family: quote($name);
+        font-style: $style;
+        font-weight: $weight;
+        src: $src;
+    }
+}
+
+// Flex
+@mixin flex($flex: null, $fd: null, $fw: null, $ff: null, $jc: null, $ai: null, $ac: null, $gap: null) {
+
+    // To do display: inline-flex just write 'inline-flex' at the start of the include
+    @if $flex =="inline-flex" {
+        display: -webkit-inline-box;
+        display: -webkit-inline-flex;
+        display: -moz-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+    }
+
+    @else {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flexbox;
+        display: flex;
+    }
+
+    // Flex direction
+    -webkit-flex-direction: $fd;
+    -moz-flex-direction: $fd;
+    -ms-flex-direction: $fd;
+    flex-direction: $fd;
+
+    // Flex wrap
+    -webkit-flex-wrap: $fw;
+    -moz-flex-wrap: $fw;
+
+    @if $fw ==nowrap {
+        -ms-flex-wrap: none;
+    }
+
+    @else {
+        -ms-flex-wrap: $fw;
+    }
+
+    flex-wrap: $fw;
+
+    // Flex-flow
+    // No Webkit Box fallback.
+    -webkit-flex-flow: $ff;
+    -moz-flex-flow: $ff;
+    -ms-flex-flow: $ff;
+    flex-flow: $ff;
+
+    // Justify content
+    @if $jc ==flex-start {
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+    }
+
+    @else if $jc ==flex-end {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+    }
+
+    @else if $jc ==space-between {
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+    }
+
+    @else if $jc ==space-around {
+        -ms-flex-pack: distribute;
+    }
+
+    @else {
+        -webkit-box-pack: $jc;
+        -ms-flex-pack: $jc;
+    }
+
+    -webkit-justify-content: $jc;
+    -moz-justify-content: $jc;
+    justify-content: $jc;
+
+    // Align items
+    @if $ai ==flex-start {
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+    }
+
+    @else if $ai ==flex-end {
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+    }
+
+    @else {
+        -webkit-box-align: $ai;
+        -ms-flex-align: $ai;
+    }
+
+    -webkit-align-items: $ai;
+    -moz-align-items: $ai;
+    align-items: $ai;
+
+    // Align content
+    // No Webkit Box Fallback.
+    -webkit-align-content: $ac;
+    -moz-align-content: $ac;
+
+    @if $ac ==flex-start {
+        -ms-flex-line-pack: start;
+    }
+
+    @else if $ac ==flex-end {
+        -ms-flex-line-pack: end;
+    }
+
+    @else {
+        -ms-flex-line-pack: $ac;
+    }
+
+    align-content: $ac;
+
+    gap: $gap;
+}
+
+// Flex Childs
+@mixin flex-child($o: null, $fg: null, $fs: null, $fb: null, $as: null, $js: null, $f: null) {
+    // Order
+    -webkit-box-ordinal-group: $o;
+    -webkit-order: $o;
+    -moz-order: $o;
+    -ms-flex-order: $o;
+    order: $o;
+
+    // Flex grow
+    -webkit-box-flex: $fg;
+    -webkit-flex-grow: $fg;
+    -moz-flex-grow: $fg;
+    -ms-flex-positive: $fg;
+    flex-grow: $fg;
+
+    // Flex shrink
+    -webkit-flex-shrink: $fs;
+    -moz-flex-shrink: $fs;
+    -ms-flex-negative: $fs;
+    flex-shrink: $fs;
+
+    // Flex basis
+    -webkit-flex-basis: $fb;
+    -moz-flex-basis: $fb;
+    -ms-flex-preferred-size: $fb;
+    flex-basis: $fb;
+
+    // Align self
+    -webkit-align-self: $as;
+    -moz-align-self: $as;
+
+    @if $as ==flex-start {
+        -ms-flex-item-align: start;
+    }
+
+    @else if $as ==flex-end {
+        -ms-flex-item-align: end;
+    }
+
+    @else {
+        -ms-flex-item-align: $as;
+    }
+
+    align-self: $as;
+
+    // Justify self
+    @if $js ==flex-start {
+        -webkit-justify-self: start;
+        -moz-justify-self: start;
+        -ms-grid-column-align: start;
+        justify-self: start;
+    }
+
+    @else if $js ==flex-end {
+        -webkit-justify-self: end;
+        -moz-justify-self: end;
+        -ms-grid-column-align: end;
+        justify-self: end;
+    }
+
+    @else {
+        -ms-flex-column-align: $js;
+        justify-self: $js;
+    }
+
+    // Flex
+    -webkit-box: $f;
+    -moz-box: $f;
+    -webkit-flex: $f;
+    -ms-flex: $f;
+    flex: $f;
+}
+
+// Grid
+@mixin grid($ga: null, $gc: null, $gap: null, $gar: null, $gac: null, $ai: null, $ji: null) {
+    display: grid;
+    grid-template-columns: $gc;
+    grid-template-areas: $ga;
+    grid-auto-rows: $gar;
+    grid-auto-columns: $gac;
+    gap: $gap;
+    align-items: $ai;
+    justify-items: $ji;
+}
+
+// Grid Child
+@mixin grid-child($ga: null, $gcs: null, $gce: null, $grs: null, $gre: null, $js: null, $as: null, $ps: null) {
+    grid-column-start: $gcs;
+    grid-column-end: $gce;
+    grid-row-start: $grs;
+    grid-row-end: $gre;
+    grid-area: $ga;
+    justify-self: $js;
+    align-self: $as;
+    place-self: $ps;
+}
+
+// Line clamp
+@mixin line-clamp($l: null) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $l;
+    overflow: hidden;
+}
+
+// Position 
+@mixin position($position, $t: null, $r: null, $b: null, $l: null) {
+    position: $position;
+    top: $t;
+    right: $r;
+    bottom: $b;
+    left: $l;
+}
+
+// Background image
+@mixin background-image($image: null,
+    $bgg: null,
+    $bc: null,
+    $br: no-repeat,
+    $bs: null,
+    $bp: null,
+    $bbm: null,
+    $bo: null,
+    $ba: null) {
+    background: {
+        image: $bgg,
+        url("#{$image}");
+        color: $bc;
+        repeat: $br;
+        size: $bs;
+        position: $bp;
+        blend-mode: $bbm;
+        origin: $bo;
+        attachment: $ba;
+    }
+}
+
+// Add arrow to box
+@mixin arrow($arrowPosition: null, $arrowCoordinate: 50%, $arrowBorder: null, $arrowBackground: null, $arrowSize: 8px) {
+    background: $arrowBackground;
+    border: 1px solid $arrowBorder;
+
+    &:after,
+    &:before {
+        border: solid transparent;
+        content: "";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+
+        @if $arrowPosition =="left" {
+            right: 100%;
+            top: $arrowCoordinate;
+        }
+
+        @else if $arrowPosition =="top" {
+            bottom: 100%;
+            left: $arrowCoordinate;
+        }
+
+        @else if $arrowPosition =="right" {
+            left: 100%;
+            top: $arrowCoordinate;
+        }
+
+        @else if $arrowPosition =="bottom" {
+            top: 100%;
+            left: $arrowCoordinate;
+        }
+    }
+
+    &:before {
+        border-color: transparent;
+        border-width: $arrowSize + 1;
+
+        @if $arrowPosition =="left" {
+            border-right-color: $arrowBorder;
+            margin-top: -($arrowSize + 1);
+        }
+
+        @else if $arrowPosition =="top" {
+            border-bottom-color: $arrowBorder;
+            margin-left: -($arrowSize + 1);
+        }
+
+        @else if $arrowPosition =="right" {
+            border-left-color: $arrowBorder;
+            margin-top: -($arrowSize + 1);
+        }
+
+        @else if $arrowPosition =="bottom" {
+            border-top-color: $arrowBorder;
+            margin-left: -($arrowSize + 1);
+        }
+    }
+
+    &:after {
+        border-color: transparent;
+        border-width: $arrowSize;
+
+        @if $arrowPosition =="left" {
+            border-right-color: $arrowBackground;
+            margin-top: -$arrowSize;
+        }
+
+        @else if $arrowPosition =="top" {
+            border-bottom-color: $arrowBackground;
+            margin-left: -$arrowSize;
+        }
+
+        @else if $arrowPosition =="right" {
+            border-left-color: $arrowBackground;
+            margin-top: -$arrowSize;
+        }
+
+        @else if $arrowPosition =="bottom" {
+            border-top-color: $arrowBackground;
+            margin-left: -$arrowSize;
+        }
+    }
+}
+
+// Add placeholder to input
+@mixin placeholder($color: null, $opacity: null) {
+    &::-webkit-input-placeholder {
+        color: $color;
+        opacity: $opacity;
+    }
+
+    &::-moz-placeholder {
+        color: $color;
+        opacity: $opacity;
+    }
+
+    &:-ms-input-placeholder {
+        color: $color;
+        opacity: $opacity;
+    }
+
+    &:-moz-placeholder {
+        color: $color;
+        opacity: $opacity;
+    }
+}
+
+// Media queries
+$max-width-sm: 576px;
+$max-width-md: 768px;
+$max-width-lg: 992px;
+$max-width-xl: 1281px;
+
+@mixin media($size) {
+
+    // For container @media
+    @if $size ==xs {
+        @media (max-width: ($max-width-sm - 1)) {
+            @content;
+        }
+    }
+
+    @else if $size ==sm {
+        @media (min-width: $max-width-sm) {
+            @content;
+        }
+    }
+
+    @else if $size ==md {
+        @media (min-width: $max-width-md) {
+            @content;
+        }
+    }
+
+    @else if $size ==lg {
+        @media (min-width: $max-width-lg) {
+            @content;
+        }
+    }
+
+    @else if $size ==xl {
+        @media (min-width: $max-width-xl) {
+            @content;
+        }
+    }
+
+    // For content @media
+    @if $size ==phone {
+        @media (max-width: ($max-width-sm - 1)) {
+            @content;
+        }
+    }
+
+    @else if $size ==tablet {
+        @media (max-width: ($max-width-md - 1)) {
+            @content;
+        }
+    }
+
+    @else if $size ==laptop {
+        @media (max-width: ($max-width-lg - 1)) {
+            @content;
+        }
+    }
+
+    @else if $size ==desktop {
+        @media (max-width: ($max-width-xl - 1)) {
+            @content;
+        }
+    }
+}
+
+// Container
+$max-container-width-xs: 100%;
+$max-container-width-sm: 512px;
+$max-container-width-md: 704px;
+$max-container-width-lg: 928px;
+$max-container-width-xl: 1224px;
+
+@mixin container {
+    @include media(xs) {
+        max-width: $max-container-width-xs;
+        padding: 0 32px;
+    }
+
+    @include media(sm) {
+        max-width: $max-container-width-sm;
+    }
+
+    @include media(md) {
+        max-width: $max-container-width-md;
+    }
+
+    @include media(lg) {
+        max-width: $max-container-width-lg;
+    }
+
+    @include media(xl) {
+        max-width: $max-container-width-xl;
+    }
+
+    margin: 0 auto;
+}

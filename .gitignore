@@ -1,0 +1,10 @@
+# dependencies
+node_modules
+
+# production and tests
+build
+coverage
+
+# misc
+.DS_Store
+.vscode

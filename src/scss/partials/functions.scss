@@ -1,0 +1,34 @@
+// SASS Modules
+@use "sass:math";
+@use "sass:list";
+
+// String Replace
+@function str-replace($string, $search, $replace: "") {
+    $index: str-index($string, $search);
+
+    @if $index {
+        @return str-slice($string, 1, $index - 1)+$replace +str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+    }
+
+    @return $string;
+}
+
+// Number conversion
+@function strip-unit($num) {
+    @if type-of($num)=="number" and not unitless($num) {
+        @return math.div($num, $num * 0 + 1);
+    }
+
+    @return $num;
+}
+
+// rem / em conversion
+// Convert value to rem.
+@function rem($size, $base-font-size: 16px) {
+    @return math.div(strip-unit($size), strip-unit($base-font-size)) * 1rem;
+}
+
+// Convert value to em.
+@function em($size, $base-font-size: 16px) {
+    @return math.div(strip-unit($size), strip-unit($base-font-size)) * 1em;
+}
