@@ -1,0 +1,70 @@
+@use '../../assets/scss/partials/variables.scss' as *;
+@use '../../assets/scss/partials/mixins.scss' as m;
+@use '../../assets/scss/partials/functions.scss' as f;
+
+.podcast-list {
+    @include m.grid($gc: repeat(4, minmax(0, 1fr)), $gap: f.em(24));
+
+    &__item {
+        @include m.position(relative);
+
+        border-radius: f.em(8);
+        box-shadow: $box-shadow;
+        margin-top: f.em(52);
+
+        background-color: $color-white;
+
+        &__link {
+            @include m.flex($fd: column, $ai: center, $jc: center);
+
+            height: 100%;
+            padding: (f.em(52) + f.em(16)) f.em(16) f.em(16);
+
+            text-decoration: none;
+
+            .link {
+                &__image {
+                    @include m.position(absolute, $b: calc(100% - #{f.em(52)}));
+                    width: f.em(104);
+                    height: f.em(104);
+                    border-radius: f.em(104);
+                }
+
+                &__title {
+                    @include m.line-clamp($l: 3);
+
+                    margin-bottom: f.em(8);
+
+                    color: $color-black;
+
+                    font-size: f.em(16);
+                    font-weight: 600;
+                    text-align: center;
+                    text-transform: uppercase;
+                }
+
+                &__author {
+                    margin-top: auto;
+
+                    color: $color-gray;
+
+                    font-size: f.em(14);
+                    text-align: center;
+                }
+            }
+        }
+    }
+
+    // Responsive
+    @include m.media(laptop) {
+        @include m.grid($gc: repeat(3, minmax(0, 1fr)));
+    }
+
+    @include m.media(tablet) {
+        @include m.grid($gc: repeat(2, minmax(0, 1fr)));
+    }
+
+    @include m.media(phone) {
+        @include m.grid($gc: minmax(0, 1fr));
+    }
+}

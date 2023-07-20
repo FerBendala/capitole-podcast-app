@@ -1,14 +1,19 @@
 import { Routes, Route } from 'react-router-dom'
 
-import ReducerTest from './components/reducer-test'
+import Layout from './layout/layout'
 
-import './scss/index.scss'
+import Home from './pages/home'
+
+import './assets/scss/index.scss'
 
 const App = () => {
     return (
         <section className='container'>
             <Routes>
-                <Route path="/" element={<ReducerTest />} />
+                <Route path="/" element={<Layout />}>
+                    {/* App Content */}
+                    <Route index element={<Home />} />
+                </Route>
             </Routes>
         </section>
     )

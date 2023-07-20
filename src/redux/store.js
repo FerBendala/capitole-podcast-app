@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, REHYDRATE, PERSIST } from 'redux-persist'
-import { persistedCounterSliceReducer } from './persist'
-
+import { persistedHomeReducer, persistedGlobalReducer } from './persist'
 
 const rootReducer = {
-    counter: persistedCounterSliceReducer,
+    global: persistedGlobalReducer,
+    home: persistedHomeReducer,
 }
 
 const store = configureStore( {

@@ -1,0 +1,39 @@
+@use "./partials/variables" as *;
+
+@import "./partials/fonts";
+@import "./partials/reset";
+
+html {
+    scroll-behavior: smooth;
+
+    body {
+        margin: 0;
+
+        color: $color-black;
+
+        font-family: $font-family;
+        line-height: 1.4;
+
+        // Basics
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -webkit-tap-highlight-color: transparent;
+
+            // Focus
+            &:focus {
+                outline: none;
+            }
+        }
+
+
+        // Images
+        img {
+            max-width: 100%;
+        }
+    }
+}

@@ -1,14 +1,19 @@
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import counterSlice from './reducers/counter-reducer'
-
+import globalReducer from './reducers/global-reducer'
+import homeReducer from './reducers/home-reducer'
 
 const persistConfig = {
     key: 'root',
     storage,
 }
 
-const persistedCounterSliceReducer =
-    persistReducer( persistConfig, counterSlice )
+const persistedGlobalReducer =
+    persistReducer( persistConfig, globalReducer )
+const persistedHomeReducer =
+    persistReducer( persistConfig, homeReducer )
 
-export { persistedCounterSliceReducer }
+export {
+    persistedGlobalReducer,
+    persistedHomeReducer
+}

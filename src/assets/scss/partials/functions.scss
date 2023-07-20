@@ -7,7 +7,7 @@
     $index: str-index($string, $search);
 
     @if $index {
-        @return str-slice($string, 1, $index - 1)+$replace +str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+        @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
     }
 
     @return $string;
@@ -15,7 +15,7 @@
 
 // Number conversion
 @function strip-unit($num) {
-    @if type-of($num)=="number" and not unitless($num) {
+    @if type-of($num) == "number" and not unitless($num) {
         @return math.div($num, $num * 0 + 1);
     }
 
