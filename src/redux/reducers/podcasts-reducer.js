@@ -1,44 +1,49 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const podcastsSlice = createSlice({
+
+const initialState = {
+    filteredPodcastList: [],
+    podcastList: [],
+    podcastDetail: {},
+    episodeDetail: {},
+    expirationDate: '',
+    searchTerm: '',
+}
+
+const podcastsSlice = createSlice( {
     name: 'podcasts',
-    initialState: {
-        filteredPodcastList: [],
-        podcastList: [],
-        podcastDetail: {},
-        episodeDetail: {}, // Agregamos esta propiedad para almacenar los detalles del episodio
-        searchTerm: '',
-    },
+    initialState: initialState,
     reducers: {
-        setFilteredPodcastList(state, action) {
+        setFilteredPodcastList( state, action ) {
             state.filteredPodcastList = action.payload
         },
-        setPodcastList(state, action) {
+        setPodcastList( state, action ) {
             state.podcastList = action.payload
         },
-        setSearchTerm(state, action) {
+        setSearchTerm( state, action ) {
             state.searchTerm = action.payload
         },
-        setPodcastDetail(state, action) {
+        setPodcastDetail( state, action ) {
             const { podcastId, data } = action.payload
             state.podcastDetail[podcastId] = data
         },
-        setEpisodeDetail(state, action) {
-            const { podcastId, episodeId, data } = action.payload
-            if (!state.episodeDetail[podcastId]) {
-                state.episodeDetail[podcastId] = {}
-            }
-            state.episodeDetail[podcastId][episodeId] = data
+        setExpirationDate( state, action ) {
+            state.expirationDate = action.payload
         },
+        resetState() {
+            return initialState
+        }
     },
-})
+} )
 
 export const {
     setFilteredPodcastList,
     setPodcastList,
     setSearchTerm,
     setPodcastDetail,
-    setEpisodeDetail, // Añadimos la acción setEpisodeDetail
+    setExpirationDate,
+    resetState
 } = podcastsSlice.actions
+
 
 export default podcastsSlice.reducer

@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { persistStore, REHYDRATE, PERSIST } from 'redux-persist'
-import { persistedHomeReducer, persistedGlobalReducer } from './persist'
+import { persistedPodcastsReducer } from './persist'
+import globalReducer from './reducers/global-reducer'
 
 const rootReducer = {
-    global: persistedGlobalReducer,
-    podcasts: persistedHomeReducer,
+    global: globalReducer,
+    podcasts: persistedPodcastsReducer
 }
 
 const store = configureStore( {
