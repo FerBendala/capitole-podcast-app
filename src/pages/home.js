@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setIsLoading, setExpirationDate, setError } from '../redux/reducers/global-reducer'
-import { setPodcastList, setSearchTerm, setFilteredPodcastList } from '../redux/reducers/home-reducer'
+import { setPodcastList, setSearchTerm, setFilteredPodcastList } from '../redux/reducers/podcasts-reducer'
 
 import Filter from '../components/filter/filter'
 import PodcastsList from '../components/podcasts-list/podcasts-list'
@@ -11,21 +11,23 @@ import { isExpired } from '../utils/utils'
 import iTunesService from '../services/index'
 
 const Home = () => {
-    const dispatch = useDispatch()
     const { expirationDate, error, isLoading } = useSelector( state => state.global )
-    const { filteredPodcastList, podcastList, searchTerm } = useSelector( state => state.home )
+    const { filteredPodcastList, podcastList, searchTerm } = useSelector( state => state.podcasts )
+
+    const dispatch = useDispatch()
 
     // On load page
     useEffect( () => {
-        console.log( isExpired( expirationDate ) )
         fetchData()
     }, [] )
 
     // Fetch iTunes api podcast list data
     const fetchData = async () => {
-        try {
-            // If podcastDetail is empty or expirationDate is expired, make a new API call and update Redux state
-            if ( podcastList?.length === 0 || isExpired( expirationDate ) ) {
+        // If podcastDetail is empty or expirationDate is expired, make a new API call and update Redux state
+        if ( podcastList?.length === 0 || isExpired( expirationDate ) ) {
+            console.log( podcastList?.length === 0 )
+            console.log( isExpired( expirationDate ) )
+            try {
                 // Purge all data if expiration date is true
                 dispatch( setIsLoading( true ) )
 
@@ -49,13 +51,15 @@ const Home = () => {
                         dispatch( setExpirationDate( currentDate ) )
                         dispatch( setIsLoading( false ) )
                     } )
-            } else {
+
+            } catch ( error ) {
                 dispatch( setIsLoading( false ) )
-                dispatch( setFilteredPodcastList( podcastList ) )
+                dispatch( setError( 'Failed to fetch podcast data.' ) )
             }
-        } catch ( error ) {
+        }
+        else {
             dispatch( setIsLoading( false ) )
-            dispatch( setError( 'Failed to fetch podcast data.' ) )
+            dispatch( setFilteredPodcastList( podcastList ) )
         }
     }
 

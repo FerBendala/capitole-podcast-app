@@ -1,0 +1,100 @@
+@use '../../assets/scss/partials/variables.scss' as *;
+@use '../../assets/scss/partials/mixins.scss' as m;
+@use '../../assets/scss/partials/functions.scss' as f;
+
+.podcast-episodes {
+    @include m.grid($gc: minmax(0, 1fr), $gap: f.em(24));
+
+    height: fit-content;
+
+    &__number {
+        height: auto;
+        padding: f.em(16) f.em(24);
+        border-radius: f.em(8);
+        box-shadow: $box-shadow;
+
+        background-color: $color-white;
+
+        font-size: f.em(18);
+        font-weight: 800;
+    }
+
+    &__table {
+        padding: f.em(16) f.em(24);
+        border-radius: f.em(8);
+        box-shadow: $box-shadow;
+
+        background-color: $color-white;
+
+        table {
+            width: 100%;
+
+            thead {
+                @include m.position(sticky, $t: 0);
+
+                background-color: $color-white;
+                box-shadow: 0 f.em(22) f.em(24) f.em(-18) rgba($color-black, 0.7);
+
+                th {
+                    padding: f.em(8);
+
+                    color: $color-black;
+
+                    font-weight: 700;
+                    text-align: left;
+
+                    &:first-child {
+                        padding-left: f.em(16);
+                    }
+
+                    &:last-child {
+                        padding-right: f.em(16);
+
+                        text-align: right;
+                    }
+                }
+            }
+
+            tbody {
+                tr {
+                    border-top: solid f.em(1) lighten($color-gray, 24%);
+
+                    td {
+                        padding: f.em(8);
+
+                        color: $color-black;
+
+                        a {
+                            @include m.line-clamp($l: 1);
+
+                            color: $color-blue;
+
+                            font-weight: 500;
+                            text-decoration: none;
+                            transition: $transition;
+
+                            &:hover {
+                                color: darken($color-blue, 16%)
+                            }
+                        }
+
+                        &:first-child {
+                            padding-left: f.em(16);
+                        }
+
+                        &:last-child {
+                            padding-right: f.em(16);
+
+                            text-align: right;
+                        }
+
+                    }
+
+                    &:nth-child(odd) {
+                        background-color: lighten($color-gray, 32%);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,6 +1,4 @@
-require( 'dotenv' ).config()
 const path = require( 'path' )
-const webpack = require( 'webpack' )
 const HtmlWebpackPlugin = require( 'html-webpack-plugin' )
 const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' )
 const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' )
@@ -8,14 +6,9 @@ const CopyWebpackPlugin = require( 'copy-webpack-plugin' )
 
 const config = ( env, argv ) => {
     const production = argv.mode === 'production'
-    const backend_url = production
-        ? process.env.BACKEND_URL_PROD
-        : process.env.BACKEND_URL_DEV
 
     return {
-        entry: {
-            main: './src/index.js',
-        },
+        entry: './src/index.js',
         output: {
             publicPath: production ? './' : '/',
             filename: production
@@ -25,6 +18,15 @@ const config = ( env, argv ) => {
                 ? 'js/[name].[contenthash].js'
                 : 'js/[name].js',
             path: path.resolve( __dirname, 'build' ),
+        },
+        devtool: production ? false : 'inline-source-map',
+        devServer: {
+            static: {
+                directory: path.join( __dirname, 'build' ),
+            },
+            compress: true,
+            port: 3000,
+            historyApiFallback: true
         },
         plugins: [
             new HtmlWebpackPlugin( {
@@ -40,8 +42,8 @@ const config = ( env, argv ) => {
                 ),
                 minify: production,
             } ),
-            new webpack.DefinePlugin( {
-                BACKEND_URL: JSON.stringify( backend_url ),
+            production && new MiniCssExtractPlugin( {
+                filename: 'css/[name].[contenthash].css'
             } ),
             new CopyWebpackPlugin( {
                 patterns: [
@@ -59,35 +61,13 @@ const config = ( env, argv ) => {
                 ],
             } ),
             production && new CleanWebpackPlugin(),
-            production &&
-            new MiniCssExtractPlugin( {
-                filename: production
-                    ? 'css/[name].[contenthash].css'
-                    : 'css/[name].css',
-            } )
         ].filter( Boolean ),
-        devtool: production ? false : 'source-map',
-        devServer: {
-            static: {
-                directory: path.join( __dirname, 'build' ),
-            },
-            compress: true,
-            port: 3000,
-            historyApiFallback: true
-        },
         module: {
             rules: [
                 {
                     test: /\.(js|ts)x?$/,
                     exclude: /node_modules/,
-                    use: [
-                        {
-                            loader: 'babel-loader',
-                            options: {
-                                cacheDirectory: true,
-                            },
-                        },
-                    ],
+                    use: ['babel-loader'],
                 },
                 {
                     test: /\.css$/,
@@ -114,7 +94,7 @@ const config = ( env, argv ) => {
                     type: 'asset/resource',
                     generator: {
                         filename: 'assets/images/[name][ext]',
-                        publicPath: '/',
+                        publicPath: production ? './' : '/',
                     },
                 },
                 {
@@ -123,14 +103,18 @@ const config = ( env, argv ) => {
                     type: 'asset/resource',
                     generator: {
                         filename: 'assets/fonts/[name][ext]',
-                        publicPath: '/',
+                        publicPath: production ? './' : '/',
                     },
                 },
             ],
         },
         resolve: {
-            extensions: ['.js', '.jsx'],
+            extensions: ['*', '.js', '.jsx'],
         },
+        performance: {
+            maxEntrypointSize: 512000,
+            maxAssetSize: 512000
+        }
     }
 }
 

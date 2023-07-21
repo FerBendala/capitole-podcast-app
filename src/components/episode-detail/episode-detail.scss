@@ -1,0 +1,28 @@
+@use '../../assets/scss/partials/variables.scss' as *;
+@use '../../assets/scss/partials/mixins.scss' as m;
+@use '../../assets/scss/partials/functions.scss' as f;
+
+.episode-detail {
+    @include m.flex-child($as: flex-start);
+
+    padding: f.em(16);
+    border-radius: f.em(8);
+    box-shadow: $box-shadow;
+
+    background-color: $color-white;
+
+    &__title {
+        margin-bottom: f.em(8);
+
+        font-size: f.em(20);
+        font-weight: 800;
+    }
+
+    &__description {
+        margin-bottom: f.em(24);
+    }
+
+    &__audio {
+        width: 100%;
+    }
+}

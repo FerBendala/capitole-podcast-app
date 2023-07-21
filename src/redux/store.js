@@ -4,7 +4,7 @@ import { persistedHomeReducer, persistedGlobalReducer } from './persist'
 
 const rootReducer = {
     global: persistedGlobalReducer,
-    home: persistedHomeReducer,
+    podcasts: persistedHomeReducer,
 }
 
 const store = configureStore( {

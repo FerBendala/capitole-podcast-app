@@ -22,6 +22,25 @@ const getAll = async () => {
     }
 }
 
+// Get episodes of a podcast by author id
+// more info: https://performance-partners.apple.com/search-api
+const getById = async ( search ) => {
+    try {
+        const response = await fetch(
+            allOrigins(
+                `https://itunes.apple.com/lookup?id=${search}&media=podcast&entity=podcastEpisode&limit=100`
+            )
+        )
+        const data = await response.json()
+        const parseData = JSON.parse( data.contents )
+        const entry = parseData.results
+
+        return entry
+    } catch ( error ) {
+        return handleApiError( error )
+    }
+}
+
 // Handle Api errors
 const handleApiError = ( error ) => {
     console.error( 'Error fetching data from iTunes API: ', error )
@@ -29,5 +48,5 @@ const handleApiError = ( error ) => {
 }
 
 
-const iTunesService = { getAll }
+const iTunesService = { getAll, getById }
 export default iTunesService
