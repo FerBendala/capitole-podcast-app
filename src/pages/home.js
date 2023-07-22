@@ -7,7 +7,8 @@ import { setPodcastList, setSearchTerm, setFilteredPodcastList, setExpirationDat
 import Filter from '../components/filter/filter'
 import PodcastsList from '../components/podcasts-list/podcasts-list'
 
-import { isExpired } from '../utils/utils'
+import { podcastsListModel } from '../utils/data-model-utils'
+import { isExpired } from '../utils/time-utils'
 import iTunesService from '../services/index'
 
 const Home = () => {
@@ -16,30 +17,24 @@ const Home = () => {
 
     const dispatch = useDispatch()
 
-    // On load page
     useEffect( () => {
-        // If podcastDetail is empty or expirationDate is expired, make a new API call and update Redux state
-        if ( podcastList?.length === 0 || isExpired( expirationDate ) ) {
-            fetchData()
-        } else {
-            dispatch( setIsLoading( false ) )
-        }
+        // Make a new API call if podcastDetail is empty or expirationDate is expired
+        const checkDateAndData = podcastList?.length === 0 || isExpired( expirationDate )
+
+        if ( checkDateAndData ) fetchData()
+        else dispatch( setIsLoading( false ) )
     }, [] )
 
     // Fetch iTunes api podcast list data
     const fetchData = async () => {
         try {
-            // Purge all data if expiration date is true
+            // Purge all data and start loading
+            dispatch( resetState() )
             dispatch( setIsLoading( true ) )
 
-            dispatch( resetState() )
+            // API CALL
             const response = await iTunesService.getAll()
             const podcastsData = response
-
-            if ( !podcastsData || podcastsData.length === 0 ) {
-                dispatch( setError( 'No episodes found for this podcast.' ) )
-                return
-            }
 
             const podcastsModelData = podcastsListModel( podcastsData )
             dispatch( setFilteredPodcastList( podcastsModelData ) )
@@ -48,23 +43,10 @@ const Home = () => {
             const currentDate = Date.now()
             dispatch( setExpirationDate( currentDate ) )
             dispatch( setIsLoading( false ) )
-        } catch {
+        } catch ( error ) {
             dispatch( setIsLoading( false ) )
-            dispatch( setError( 'Failed to fetch podcast data.' ) )
+            dispatch( setError( 'Failed to fetch podcast list. reload page and try again' ) )
         }
-    }
-
-    // Modeling the podcast list into a more understandable and usable format
-    const podcastsListModel = ( podcastData ) => {
-        const podcastsModel = podcastData.map( ( podcast ) => ( {
-            id: podcast.id.attributes['im:id'],
-            title: podcast.title.label,
-            image: podcast['im:image'][2].label,
-            artist: podcast['im:artist'].label,
-            summary: podcast.summary.label,
-        } ) )
-
-        return podcastsModel
     }
 
     // Handle search filter
@@ -80,12 +62,11 @@ const Home = () => {
     // Log error
     if ( error ) {
         console.error( error )
+        return <p>{error}</p>
     }
 
     // Early return
-    if ( isLoading ) {
-        return null
-    }
+    if ( isLoading ) return null
 
     return (
         <>
@@ -95,7 +76,7 @@ const Home = () => {
                 setSearchTerm={handleSearch}
                 text='Filter by something...'
             />
-            <PodcastsList />
+            <PodcastsList podcastsList={filteredPodcastList} />
         </>
     )
 }

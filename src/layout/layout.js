@@ -1,24 +1,16 @@
 import { Outlet, Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import { setIsLoading } from '../redux/reducers/global-reducer'
-
+import { useSelector } from 'react-redux'
 import iconLoader from '../assets/images/icon-loading.svg'
 import './layout.scss'
 
 const Layout = () => {
-    // Get is loading from redux
     const isLoading = useSelector( ( state ) => state.global.isLoading )
-    const dispatch = useDispatch()
 
     return (
         <>
             <header className='header'>
                 <h1 className='header__title'>
-                    <Link
-                        to='/'
-                        className='header__title__link'
-                        onClick={() => dispatch( setIsLoading( false ) )}
-                    >
+                    <Link to='/' className='header__title__link' >
                         Podcaster
                     </Link>
                 </h1>
@@ -30,7 +22,7 @@ const Layout = () => {
                         className='header__loader'
                     />
                 )}
-            </header>
+            </header >
             <main className='main'>
                 <Outlet />
             </main>

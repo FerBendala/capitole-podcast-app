@@ -1,27 +1,34 @@
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { setIsLoading } from '../redux/reducers/global-reducer'
 
 import EpisodeDetail from '../components/episode-detail/episode-detail'
 import PodcastInfo from '../components/podcast-info/podcast-info'
+import { useEffect } from 'react'
 
 const Podcast = () => {
-    const { podcastId, episodeId } = useParams()
-
+    const { podcastId, episodeId } = useParams() // Get podcast and episode id's from URL params
     const podcastDetail = useSelector( ( state ) => state.podcasts.podcastDetail[podcastId] )
-    const [episodeDetail, setEpisodeDetail] = useState( {} )
+
+    const dispatch = useDispatch()
 
     useEffect( () => {
-        const filteredEpisode = podcastDetail.episodes.filter( ( episode ) =>
-            Number( episode.id ) === Number( episodeId )
-        )
-        setEpisodeDetail( filteredEpisode )
+        dispatch( setIsLoading( false ) )
     }, [] )
+
+    // Set podcast info
+    const podcastInfo = podcastDetail?.podcastInfo
+
+    // Search episode into podcastDetail list
+    const filteredEpisode = podcastDetail.episodes.find( ( episode ) =>
+        Number( episode.id ) === Number( episodeId )
+    )
 
     return (
         <section className='main__grid--in-layout'>
-            <PodcastInfo podcastInfo={podcastDetail.podcastInfo} />
-            <EpisodeDetail episodeDetail={episodeDetail} />
+            <PodcastInfo podcastInfo={podcastInfo} />
+            <EpisodeDetail episodeDetail={filteredEpisode} />
         </section>
     )
 }

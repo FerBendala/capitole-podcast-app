@@ -75,6 +75,7 @@
         &__text {
             font-size: f.em(12);
             font-style: italic;
+            word-break: break-word;
         }
     }
 }
