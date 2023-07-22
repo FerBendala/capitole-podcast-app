@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './filter.scss'
 
 const Filter = ( { resultsNumber, searchTerm, setSearchTerm, text } ) => {
     const [search, setSearch] = useState( searchTerm )
-
-    useEffect( () => {
-        setSearch( '' )
-    }, [] )
 
     const handleSearch = ( event ) => {
         setSearchTerm( event.target.value )

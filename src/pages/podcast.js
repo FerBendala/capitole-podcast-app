@@ -30,8 +30,8 @@ const Podcast = () => {
 
     // Fetch iTunes api podcast detail data
     const fetchData = async () => {
-        try {
-            if ( !podcastDetail || isExpired( expirationDate ) ) {
+        if ( !podcastDetail || isExpired( expirationDate ) ) {
+            try {
                 dispatch( setIsLoading( true ) )
 
                 const response = await iTunesService.getById( podcastId )
@@ -47,12 +47,12 @@ const Podcast = () => {
                 // Dispatch the action using the action creator
                 dispatch( setPodcastDetail( { podcastId, data: episodeModelData } ) )
                 dispatch( setIsLoading( false ) )
-            } else {
+            } catch ( error ) {
                 dispatch( setIsLoading( false ) )
+                dispatch( setError( 'Failed to fetch podcast data.' ) )
             }
-        } catch ( error ) {
+        } else {
             dispatch( setIsLoading( false ) )
-            dispatch( setError( 'Failed to fetch podcast data.' ) )
         }
     }
 

@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { useSelector, useDispatch } from 'react-redux'
 import { setIsLoading, setError } from '../redux/reducers/global-reducer'
-import { setPodcastList, setSearchTerm, setFilteredPodcastList, setExpirationDate } from '../redux/reducers/podcasts-reducer'
+import { setPodcastList, setSearchTerm, setFilteredPodcastList, setExpirationDate, resetState } from '../redux/reducers/podcasts-reducer'
 
 import Filter from '../components/filter/filter'
 import PodcastsList from '../components/podcasts-list/podcasts-list'
@@ -18,45 +18,39 @@ const Home = () => {
 
     // On load page
     useEffect( () => {
-        fetchData()
+        // If podcastDetail is empty or expirationDate is expired, make a new API call and update Redux state
+        if ( podcastList?.length === 0 || isExpired( expirationDate ) ) {
+            fetchData()
+        } else {
+            dispatch( setIsLoading( false ) )
+        }
     }, [] )
 
     // Fetch iTunes api podcast list data
     const fetchData = async () => {
-        // If podcastDetail is empty or expirationDate is expired, make a new API call and update Redux state
-        if ( podcastList?.length === 0 || isExpired( expirationDate ) ) {
-            try {
-                // Purge all data if expiration date is true
-                dispatch( setIsLoading( true ) )
+        try {
+            // Purge all data if expiration date is true
+            dispatch( setIsLoading( true ) )
 
-                iTunesService
-                    .getAll()
-                    .then( ( response ) => {
+            dispatch( resetState() )
+            const response = await iTunesService.getAll()
+            const podcastsData = response
 
-                        // Updating Redux state with new podcast list data and expiration date
-                        const podcastsData = response
-                        if ( !podcastsData || podcastsData.length === 0 ) {
-                            dispatch( setError( 'No episodes found for this podcast.' ) )
-                            return
-                        }
-
-                        const podcastsModelData = podcastsListModel( podcastsData )
-                        dispatch( setFilteredPodcastList( podcastsModelData ) )
-                        dispatch( setPodcastList( podcastsModelData ) )
-
-                        const currentDate = Date.now()
-                        dispatch( setExpirationDate( currentDate ) )
-                        dispatch( setIsLoading( false ) )
-                    } )
-
-            } catch ( error ) {
-                dispatch( setIsLoading( false ) )
-                dispatch( setError( 'Failed to fetch podcast data.' ) )
+            if ( !podcastsData || podcastsData.length === 0 ) {
+                dispatch( setError( 'No episodes found for this podcast.' ) )
+                return
             }
-        }
-        else {
+
+            const podcastsModelData = podcastsListModel( podcastsData )
+            dispatch( setFilteredPodcastList( podcastsModelData ) )
+            dispatch( setPodcastList( podcastsModelData ) )
+
+            const currentDate = Date.now()
+            dispatch( setExpirationDate( currentDate ) )
             dispatch( setIsLoading( false ) )
-            dispatch( setFilteredPodcastList( podcastList ) )
+        } catch {
+            dispatch( setIsLoading( false ) )
+            dispatch( setError( 'Failed to fetch podcast data.' ) )
         }
     }
 
