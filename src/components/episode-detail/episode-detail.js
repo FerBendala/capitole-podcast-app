@@ -2,7 +2,6 @@ import parse from 'html-react-parser' // to parse html data in description
 import './episode-detail.scss'
 
 const EpisodeDetail = ( { episodeDetail = [] } ) => {
-    console.log( episodeDetail )
     return (
         <>
             {Array.isArray( episodeDetail ) && episodeDetail.length > 0

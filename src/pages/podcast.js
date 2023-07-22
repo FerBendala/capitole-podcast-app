@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { setIsLoading, setError } from '../redux/reducers/global-reducer'
+import { setError, setIsLoading } from '../redux/reducers/global-reducer'
 import { setPodcastDetail } from '../redux/reducers/podcasts-reducer'
 
 import PodcastInfo from '../components/podcast-info/podcast-info'
@@ -17,40 +17,36 @@ const Podcast = () => {
     const dispatch = useDispatch()
 
     // Get the podcast list, expiration date, and detail from the Redux store
-    const { expirationDate, error, isLoading } = useSelector( ( state ) => state.global )
-    const { podcastList } = useSelector( ( state ) => state.podcasts )
+    const { error, isLoading } = useSelector( ( state ) => state.global )
+
+    const { podcastList, expirationDate } = useSelector( ( state ) => state.podcasts )
     const podcastDetail = useSelector( ( state ) => state.podcasts.podcastDetail[podcastId] )
 
 
     useEffect( () => {
+        console.log( podcastDetail )
         fetchData()
     }, [] )
 
     // Fetch iTunes api podcast detail data
-    const fetchData = () => {
+    const fetchData = async () => {
         try {
             if ( !podcastDetail || isExpired( expirationDate ) ) {
                 dispatch( setIsLoading( true ) )
 
-                iTunesService
-                    .getById( podcastId )
-                    .then( ( response ) => {
-                        const episodeData = response
+                const response = await iTunesService.getById( podcastId )
+                const episodeData = response
 
-                        if ( !episodeData || episodeData.length === 0 ) {
-                            dispatch( setError( 'No episodes found for this podcast.' ) )
-                            dispatch( setIsLoading( false ) )
-                            return
-                        }
+                if ( !episodeData || episodeData.length === 0 ) {
+                    dispatch( setError( 'No episodes found for this podcast.' ) )
+                    dispatch( setIsLoading( false ) )
+                    return
+                }
 
-                        const episodeModelData = podcastModel( episodeData, podcastId )
-                        dispatch( setPodcastDetail( { podcastId, data: episodeModelData } ) )
-                        dispatch( setIsLoading( false ) )
-                    } )
-                    .catch( ( error ) => {
-                        dispatch( setIsLoading( false ) )
-                        dispatch( setError( 'Failed to fetch podcast data.', error ) )
-                    } )
+                const episodeModelData = podcastModel( episodeData, podcastId )
+                // Dispatch the action using the action creator
+                dispatch( setPodcastDetail( { podcastId, data: episodeModelData } ) )
+                dispatch( setIsLoading( false ) )
             } else {
                 dispatch( setIsLoading( false ) )
             }
@@ -92,7 +88,6 @@ const Podcast = () => {
         console.error( error )
     }
 
-    // Early return
     if ( isLoading ) {
         return null
     }

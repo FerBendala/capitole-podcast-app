@@ -1,10 +1,14 @@
 import { Link } from 'react-router-dom'
 import './podcasts-list.scss'
 
-const PodcastsList = ( { podcastsList = [] } ) =>
-    <section className='podcast-list'>
-        {Array.isArray( podcastsList ) && podcastsList.length > 0
-            && podcastsList.map( ( { id, title, image, artist } ) => (
+import { useSelector } from 'react-redux'
+
+const PodcastsList = () => {
+    const { filteredPodcastList } = useSelector( state => state.podcasts )
+
+    return (
+        <section className='podcast-list'>
+            {filteredPodcastList.map( ( { id, title, image, artist } ) => (
                 <article
                     key={id}
                     className='podcast-list__item'
@@ -25,7 +29,8 @@ const PodcastsList = ( { podcastsList = [] } ) =>
                     </Link>
                 </article>
             ) )
-        }
-    </section>
-
+            }
+        </section>
+    )
+}
 export default PodcastsList

@@ -1,8 +1,7 @@
 // Check if the given time has passed the maximum duration (24 hours in this case)
-export const isExpired = ( time ) => {
-    const timePassed = Date.now() - Number( time )
-    // const maxDuration = 24 * 60 * 60 * 1000
-    const maxDuration = 10 * 1000
+export const isExpired = ( timestamp ) => {
+    const timePassed = Date.now() - timestamp
+    const maxDuration = 24 * 60 * 60 * 1000
 
     return timePassed > maxDuration
 }

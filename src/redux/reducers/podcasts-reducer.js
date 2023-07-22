@@ -6,7 +6,7 @@ const initialState = {
     podcastList: [],
     podcastDetail: {},
     episodeDetail: {},
-    expirationDate: '',
+    expirationDate: null,
     searchTerm: '',
 }
 

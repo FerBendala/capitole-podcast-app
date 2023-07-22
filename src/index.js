@@ -15,7 +15,7 @@ const root = createRoot( document.getElementById( 'root' ) )
 root.render(
     <StrictMode>
         <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
+            <PersistGate persistor={persistor}>
                 <BrowserRouter>
                     <App />
                 </BrowserRouter>

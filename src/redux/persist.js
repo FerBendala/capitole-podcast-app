@@ -3,7 +3,7 @@ import storage from 'redux-persist/lib/storage'
 import podcastsReducer from './reducers/podcasts-reducer'
 
 const persistConfig = {
-    key: 'root',
+    key: 'podcasts',
     storage,
 }
 
