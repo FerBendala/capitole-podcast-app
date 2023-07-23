@@ -4,6 +4,10 @@ import './podcast-info.scss'
 const PodcastInfo = ( { podcastInfo = {} } ) => {
     const { id, image, title, artist, summary } = podcastInfo
 
+    if ( Object.keys( podcastInfo ).length === 0 || !id ) {
+        return <p>This podcast don&apos;t have info</p>
+    }
+
     return (
         <aside
             key={id}

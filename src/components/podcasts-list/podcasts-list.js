@@ -2,17 +2,18 @@ import { Link } from 'react-router-dom'
 import './podcasts-list.scss'
 
 const PodcastsList = ( { podcastsList = [] } ) => {
+    const arrayIsntEmpty = Array.isArray( podcastsList ) && podcastsList.length > 0
+
     return (
         <section className='podcast-list'>
-            {Array.isArray( podcastsList ) && podcastsList.length > 0
-                && podcastsList.map( ( { id, title, image, artist } ) => (
+            {arrayIsntEmpty
+                ? podcastsList.map( ( { id, title, image, artist } ) =>
                     <article
                         key={id}
                         className='podcast-list__item'
                     >
                         <Link
                             to={`/podcast/${id}`}
-                            id={id}
                             className='podcast-list__item__link'
                         >
                             <img
@@ -25,9 +26,10 @@ const PodcastsList = ( { podcastsList = [] } ) => {
                             <p className='link__author'>Author: {artist}</p>
                         </Link>
                     </article>
-                ) )
+                ) : <p>No podcasts found. Please try again later or refresh the page.</p>
             }
-        </section> )
+        </section>
+    )
 }
 
 export default PodcastsList

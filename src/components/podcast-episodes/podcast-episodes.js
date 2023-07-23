@@ -4,7 +4,10 @@ import './podcast-episodes.scss'
 
 const PodcastEpisodes = ( { podcastEpisodes = [] } ) => {
     return (
-        <div className='podcast-episodes'>
+        <div
+            className='podcast-episodes'
+            data-test='podcast-episodes'
+        >
             <div className='podcast-episodes__number'>
                 Episodes: {podcastEpisodes.length}
             </div>

@@ -4,6 +4,10 @@ import './episode-detail.scss'
 const EpisodeDetail = ( { episodeDetail = {} } ) => {
     const { id, title, description, preview } = episodeDetail
 
+    if ( Object.keys( episodeDetail ).length === 0 || !id ) {
+        return <p>This episode don&apos;t have description</p>
+    }
+
     return (
         <article
             key={id}
@@ -13,6 +17,7 @@ const EpisodeDetail = ( { episodeDetail = {} } ) => {
             <h2 className='episode-detail__title'>{title}</h2>
             <p className='episode-detail__description'>{parse( description )}</p>
             <audio
+                data-testid="audio-element"
                 className='episode-detail__audio'
                 src={preview}
                 controls

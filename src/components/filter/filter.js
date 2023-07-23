@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './filter.scss'
 
 const Filter = ( { resultsNumber, searchTerm, setSearchTerm, text } ) => {
     const [search, setSearch] = useState( searchTerm )
 
+    useEffect( () => {
+        setSearchTerm( search )
+    }, [search] )
+
     const handleSearch = ( event ) => {
-        setSearchTerm( event.target.value )
         setSearch( event.target.value )
     }
 
@@ -15,6 +18,7 @@ const Filter = ( { resultsNumber, searchTerm, setSearchTerm, text } ) => {
             <input
                 className='filter__input'
                 type='text'
+                aria-label='search'
                 value={search}
                 onChange={handleSearch}
                 placeholder={text}

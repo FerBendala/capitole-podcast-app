@@ -10,7 +10,7 @@ const config = ( env, argv ) => {
     return {
         entry: './src/index.js',
         output: {
-            publicPath: production ? './' : '/',
+            publicPath: '/',
             filename: production
                 ? 'js/[name].[contenthash].js'
                 : 'js/[name].js',
@@ -94,7 +94,7 @@ const config = ( env, argv ) => {
                     type: 'asset/resource',
                     generator: {
                         filename: 'assets/images/[name][ext]',
-                        publicPath: production ? './' : '/',
+                        publicPath: '/',
                     },
                 },
                 {
@@ -103,7 +103,7 @@ const config = ( env, argv ) => {
                     type: 'asset/resource',
                     generator: {
                         filename: 'assets/fonts/[name][ext]',
-                        publicPath: production ? './' : '/',
+                        publicPath: '/',
                     },
                 },
             ],
