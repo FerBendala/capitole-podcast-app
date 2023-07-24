@@ -6,14 +6,9 @@ import '@testing-library/jest-dom'
 import { render, fireEvent } from '@testing-library/react'
 
 import PodcastInfo from '../../components/podcast-info/podcast-info'
+import data from '../json/data.json'
 
-let podcastInfoData = {
-    id: 1535809341,
-    title: 'The Joe Budden Podcast - The Joe Budden Network',
-    image: 'https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png',
-    artist: 'The Joe Budden Network',
-    summary: 'Tune into Joe Budden and his friends. Follow along the crazy adventures of these very random friends.'
-}
+let podcastInfoData = data.podcastDetail[1215386938].podcastInfo
 const errorMessage = 'This podcast don\'t have info'
 
 

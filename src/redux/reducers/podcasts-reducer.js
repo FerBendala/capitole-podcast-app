@@ -5,7 +5,6 @@ const initialState = {
     filteredPodcastList: [],
     podcastList: [],
     podcastDetail: {},
-    episodeDetail: {},
     expirationDate: null,
     searchTerm: '',
 }

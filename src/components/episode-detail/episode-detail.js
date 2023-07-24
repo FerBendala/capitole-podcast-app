@@ -5,7 +5,7 @@ const EpisodeDetail = ( { episodeDetail = {} } ) => {
     const { id, title, description, preview } = episodeDetail
 
     if ( Object.keys( episodeDetail ).length === 0 || !id ) {
-        return <p>This episode don&apos;t have description</p>
+        return <p>Episode not found.</p>
     }
 
     return (

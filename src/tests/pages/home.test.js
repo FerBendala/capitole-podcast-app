@@ -1,12 +1,13 @@
 import { BrowserRouter } from 'react-router-dom' // Import BrowserRouter
 
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 
 import Home from '../../pages/home'
+import data from '../json/data.json'
 
 // Mock the Redux store
 const mockStore = configureStore( [] )
@@ -14,27 +15,9 @@ const mockStore = configureStore( [] )
 // Use node-fetch in the Node.js environment (tests)
 global.fetch = require( 'jest-fetch-mock' )
 
-// Data
-const podcastList = [
-    {
-        id: 1535809341,
-        title: 'The Joe Budden Podcast - The Joe Budden Network',
-        image:
-            'https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png',
-        artist: 'The Joe Budden Network',
-    },
-    {
-        id: 1311004083,
-        title:
-            'Broken Record with Rick Rubin, Malcolm Gladwell, Bruce Headlam and Justin Richmond - Pushkin Industries',
-        image:
-            'https://is4-ssl.mzstatic.com/image/thumb/Podcasts112/v4/7b/12/d5/7b12d5ec-7264-6693-8a8e-e6b414a783c3/mza_10388338206053029687.jpg/170x170bb.png',
-        artist: 'Pushkin Industries',
-    },
-]
-
 describe( 'Home Component', () => {
     let store
+    let component
     let originalConsoleError
 
     beforeEach( () => {
@@ -48,12 +31,20 @@ describe( 'Home Component', () => {
                 isLoading: false,
             },
             podcasts: {
-                filteredPodcastList: podcastList,
-                podcastList: podcastList,
+                filteredPodcastList: data.filteredPodcastList,
+                podcastList: data.podcastList,
                 searchTerm: '',
                 expirationDate: null,
             },
         } )
+
+        component = render(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Home />
+                </BrowserRouter>
+            </Provider>
+        )
     } )
 
     afterEach( () => {
@@ -62,29 +53,13 @@ describe( 'Home Component', () => {
     } )
 
     test( 'renders without errors', () => {
-        render(
-            <Provider store={store}>
-                <BrowserRouter>
-                    <Home />
-                </BrowserRouter>
-            </Provider>
-        )
-
         expect( screen.getByTestId( 'filter' ) ).toBeInTheDocument()
         expect( screen.getByTestId( 'podcasts-list' ) ).toBeInTheDocument()
     } )
 
     test( 'renders the podcast list', () => {
-        render(
-            <Provider store={store}>
-                <BrowserRouter>
-                    <Home />
-                </BrowserRouter>
-            </Provider>
-        )
-
-        expect( screen.getByText( podcastList[0].title ) ).toBeInTheDocument()
-        expect( screen.getByText( podcastList[1].title ) ).toBeInTheDocument()
+        expect( screen.getByText( data.podcastList[0].title ) ).toBeInTheDocument()
+        expect( screen.getByText( data.podcastList[1].title ) ).toBeInTheDocument()
     } )
 
     test( 'renders error message when an error occurs', () => {
@@ -101,7 +76,7 @@ describe( 'Home Component', () => {
             },
         } )
 
-        render(
+        component.rerender(
             <Provider store={store}>
                 <BrowserRouter>
                     <Home />
@@ -128,7 +103,7 @@ describe( 'Home Component', () => {
             },
         } )
 
-        render(
+        component.rerender(
             <Provider store={store}>
                 <BrowserRouter>
                     <Home />
@@ -142,14 +117,6 @@ describe( 'Home Component', () => {
     } )
 
     test( 'displays only one result after search', () => {
-        render(
-            <Provider store={store}>
-                <BrowserRouter>
-                    <Home />
-                </BrowserRouter>
-            </Provider>
-        )
-
         const inputField = screen.getByLabelText( 'search' )
         fireEvent.change( inputField, { target: { value: 'the joe' } } )
 
@@ -173,7 +140,7 @@ describe( 'Home Component', () => {
             },
         } )
 
-        render(
+        component.rerender(
             <Provider store={store}>
                 <BrowserRouter>
                     <Home />
@@ -192,15 +159,14 @@ describe( 'Home Component', () => {
                 isLoading: false,
             },
             podcasts: {
-                filteredPodcastList: podcastList,
-                podcastList: podcastList,
+                filteredPodcastList: data.filteredPodcastList,
+                podcastList: data.podcastList,
                 searchTerm: '',
                 expirationDate: Date.now() - 1000, // Set expirationDate to a past time (expired)
             },
         } )
 
-        // Render the Home component with the mock store
-        render(
+        component.rerender(
             <Provider store={store}>
                 <BrowserRouter>
                     <Home />
@@ -210,5 +176,37 @@ describe( 'Home Component', () => {
 
         // Verify that fetchData is called when the expirationDate is expired
         expect( global.fetch ).toHaveBeenCalled()
+    } )
+
+    test( 'handles loading state correctly', async () => {
+        // Mock initial state of the store with an empty podcastDetail and isLoading set to true
+        store = mockStore( {
+            global: {
+                error: null,
+                isLoading: true,
+            },
+            podcasts: {
+                podcastDetail: {},
+                podcastList: [],
+                expirationDate: null,
+            },
+        } )
+
+        // Render the Podcast component with the mock store and Router
+        component.rerender(
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Home />
+                </BrowserRouter>
+            </Provider>
+        )
+
+        // Expect loading state to be handled correctly (return null)
+        expect( screen.queryByText( 'Loading...' ) ).toBeNull()
+
+        // Wait for loading to complete (setIsLoading(false) in the useEffect hook)
+        await waitFor( () => {
+            expect( screen.queryByText( 'Loading...' ) ).toBeNull()
+        } )
     } )
 } )

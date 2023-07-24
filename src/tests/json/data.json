@@ -1,0 +1,196 @@
+{
+    "filteredPodcastList": [
+        {
+            "id": "1535809341",
+            "title": "The Joe Budden Podcast - The Joe Budden Network",
+            "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png",
+            "artist": "The Joe Budden Network",
+            "summary": "Tune into Joe Budden and his friends. Follow along the crazy adventures of these very random friends."
+        },
+        {
+            "id": "1096830182",
+            "title": "Drink Champs - Interval Presents",
+            "image": "https://is2-ssl.mzstatic.com/image/thumb/Podcasts126/v4/1f/ad/c7/1fadc7d4-1e22-beaa-720a-2e2988dc1521/mza_16091018887573148747.jpg/170x170bb.png",
+            "artist": "Interval Presents",
+            "summary": "Legendary Queens rapper-turned show host N.O.R.E. teams up with Miami hip-hop pioneer DJ EFN for a night of boozy conversation and boisterous storytelling. The hosts and guests engage together in fun, light-hearted conversation - looking back at their paths to success, highlighting their lives, friendships, and iconic moments within their career. In this unfiltered series, drinks are flowing and jokes are rolling - take a seat at the table with N.O.R.E & EFN. You Gotta Relax!"
+        },
+        {
+            "id": "1635211340",
+            "title": "60 Songs That Explain the '90s - The Ringer",
+            "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts112/v4/f4/53/be/f453be7f-2a34-0617-7bc1-bc57d9b747fc/mza_6548891788110664288.jpg/170x170bb.png",
+            "artist": "The Ringer",
+            "summary": "The 1990s were a turning point in music: with the increasingly connected world enabling an unprecedented coalescence of various styles and genres, the decade featured the rapid evolution of sonic artistry — and subsequently shaped the soundscape of eras that followed. Listen along as The Ringer’s preeminent music critic Rob Harvilla curates and explores 60 iconic songs from the ‘90s that define the decade."
+        },
+        {
+            "id": "1460157002",
+            "title": "Million Dollaz Worth Of Game - Barstool Sports",
+            "image": "https://is2-ssl.mzstatic.com/image/thumb/Podcasts125/v4/7b/cf/f6/7bcff6bb-5f99-6c2f-c6c5-3a9799f3df21/mza_8544742664200824246.jpg/170x170bb.png",
+            "artist": "Barstool Sports",
+            "summary": "The Million Dollaz Worth of Game show, a weekly podcast with rapper/actor @GillieDaKing and social media influencer and disruptor @Wallo267 - The perfect blend of discussing music, real life issues, personal experiences, honest advice and comedyYou can find every episode of this show on Apple Podcasts, Spotify or YouTube. Prime Members can listen ad-free on Amazon Music. For more, visit barstool.link/mworthofgame"
+        },
+        {
+            "id": "1572182022",
+            "title": "New Rory & MAL - Rory Farrell & Jamil Mal Clay",
+            "image": "https://is4-ssl.mzstatic.com/image/thumb/Podcasts116/v4/92/65/c6/9265c6dd-7db1-8160-c97c-bef564d23610/mza_16535014723154009651.jpg/170x170bb.png",
+            "artist": "Rory Farrell & Jamil Mal Clay",
+            "summary": "New stories, new laughs, new random hot takes that no one asked for... New Rory & Mal."
+        }
+    ],
+    "podcastList": [
+        {
+            "id": "1535809341",
+            "title": "The Joe Budden Podcast - The Joe Budden Network",
+            "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png",
+            "artist": "The Joe Budden Network",
+            "summary": "Tune into Joe Budden and his friends. Follow along the crazy adventures of these very random friends."
+        },
+        {
+            "id": "1096830182",
+            "title": "Drink Champs - Interval Presents",
+            "image": "https://is2-ssl.mzstatic.com/image/thumb/Podcasts126/v4/1f/ad/c7/1fadc7d4-1e22-beaa-720a-2e2988dc1521/mza_16091018887573148747.jpg/170x170bb.png",
+            "artist": "Interval Presents",
+            "summary": "Legendary Queens rapper-turned show host N.O.R.E. teams up with Miami hip-hop pioneer DJ EFN for a night of boozy conversation and boisterous storytelling. The hosts and guests engage together in fun, light-hearted conversation - looking back at their paths to success, highlighting their lives, friendships, and iconic moments within their career. In this unfiltered series, drinks are flowing and jokes are rolling - take a seat at the table with N.O.R.E & EFN. You Gotta Relax!"
+        },
+        {
+            "id": "1635211340",
+            "title": "60 Songs That Explain the '90s - The Ringer",
+            "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts112/v4/f4/53/be/f453be7f-2a34-0617-7bc1-bc57d9b747fc/mza_6548891788110664288.jpg/170x170bb.png",
+            "artist": "The Ringer",
+            "summary": "The 1990s were a turning point in music: with the increasingly connected world enabling an unprecedented coalescence of various styles and genres, the decade featured the rapid evolution of sonic artistry — and subsequently shaped the soundscape of eras that followed. Listen along as The Ringer’s preeminent music critic Rob Harvilla curates and explores 60 iconic songs from the ‘90s that define the decade."
+        },
+        {
+            "id": "1460157002",
+            "title": "Million Dollaz Worth Of Game - Barstool Sports",
+            "image": "https://is2-ssl.mzstatic.com/image/thumb/Podcasts125/v4/7b/cf/f6/7bcff6bb-5f99-6c2f-c6c5-3a9799f3df21/mza_8544742664200824246.jpg/170x170bb.png",
+            "artist": "Barstool Sports",
+            "summary": "The Million Dollaz Worth of Game show, a weekly podcast with rapper/actor @GillieDaKing and social media influencer and disruptor @Wallo267 - The perfect blend of discussing music, real life issues, personal experiences, honest advice and comedyYou can find every episode of this show on Apple Podcasts, Spotify or YouTube. Prime Members can listen ad-free on Amazon Music. For more, visit barstool.link/mworthofgame"
+        },
+        {
+            "id": "1572182022",
+            "title": "New Rory & MAL - Rory Farrell & Jamil Mal Clay",
+            "image": "https://is4-ssl.mzstatic.com/image/thumb/Podcasts116/v4/92/65/c6/9265c6dd-7db1-8160-c97c-bef564d23610/mza_16535014723154009651.jpg/170x170bb.png",
+            "artist": "Rory Farrell & Jamil Mal Clay",
+            "summary": "New stories, new laughs, new random hot takes that no one asked for... New Rory & Mal."
+        }
+    ],
+    "podcastDetail": {
+        "1215386938": {
+            "podcastInfo": {
+                "id": "1215386938",
+                "title": "Sticky Notes: The Classical Music Podcast - Joshua Weilerstein",
+                "image": "https://is4-ssl.mzstatic.com/image/thumb/Podcasts125/v4/58/60/74/58607414-6263-9fa9-4fad-d5879c071643/mza_11208751241845350981.jpeg/170x170bb.png",
+                "artist": "Joshua Weilerstein",
+                "summary": "Sticky Notes is a classical music podcast for everyone, whether you are just getting interested in classical music for the first time, or if you've been listening to it and loving it all your life.Interviews with great artists, in depth looks at pieces in the repertoire, and both basic and deep dives into every era of music. Classical music is absolutely for everyone, so let's start listening!Note - Seasons 1-5 will be returning over the next year. They have been taken down in order to be re-recorded in improved sound quality!"
+            },
+            "episodes": [
+                {
+                    "id": 1000621766419,
+                    "collectionId": 1215386938,
+                    "title": "Jean-Louis Duport Cello Concerto No. 4",
+                    "date": "2023-07-20T05:40:00Z",
+                    "duration": 2585000,
+                    "description": "Thank you to Nicole for sponsoring today's show on Patreon! Have you ever heard of Jean-Louis Duport? I imagine that unless you are a professional cellist, or someone who studied cello as a child, you probably haven’t. Even though my sister is a professional cellist, I had never heard of him before I was asked to make this show. Duport is a historical figure who has been almost completely forgotten, though he was part of a fascinating group of musicians who encountered Beethoven, Frederick the Great, and even Napoleon! He and his brother Jean-Pierre were two of the greatest cellists of their era, and Jean-Louis lives on for cellists as the writer of a set of etudes or studies that are still used by cellists all over the world to refine their techniques. But Jean-Louis Duport also wrote 6 cello concertos, pieces which show his profound connection with the instrument, as well as his mastery of the style of his time. Today on the show I’ll take you through one of those concertos, his 4th, but I’m also going to do something a bit different. Since this will be my first time encountering the music of Duport, I want to show you how I might approach this piece as a conductor learning it for the first time. I’ve been conducting professionally now for almost 15 years, so there aren’t a lot of pieces that are brand new to me anymore, but if I were to conduct this concerto, it would be totally new to me, which means that I approach this music in a totally different way than a piece I’d conducted a few times before. So today on the show we’ll go through the piece, as well as my process for how I would learn a work like this, from start to finish. Join us!",
+                    "preview": "https://traffic.libsyn.com/secure/stickynotespodcast/Duport_-_72023_7.46_AM.mp3?dest-id=477278"
+                },
+                {
+                    "id": 1000619541279,
+                    "collectionId": 1215386938,
+                    "title": "Brahms B Major Piano Trio",
+                    "date": "2023-07-06T11:45:07Z",
+                    "duration": 3326000,
+                    "description": "When we listen to the music of Johannes Brahms, we often are reminded of the image of the portly bearded Brahms at the piano, eyes closed in a soulful pose. Brahms’ works always, even in his youth, seemed to have a burnished maturity about them. As I’ve said many times on this show, Brahms’ music is often described as autumnal, and there’s a good reason for this, as its gentle melancholy is one of those things that never left Brahms even in his earlier works. But the piece we’re talking about today isn’t an early work, or a late work of Brahms. Actually, it’s both! Brahms’ B major trio is one of the rarest of rare pieces, in that it is published in two distinct versions, a version that Brahms wrote when he was just 20 years old, and a work that he heavily revised near the end of his career 35 years later, making changes that in some senses fundamentally recast the piece. At the same time, much of the original material is left in place, creating an unusual amalgam of the youthful and the mature. Brahms himself jokingly said that in the revisions of the piece, “I didn't provide it with a new wig, just combed and arranged its hair a little Today on this Patreon sponsored episode I’ll take you through this piece in both of its versions, exploring the original trio and then its far more performed revision, trying to see why Brahms made the changes that he made, and what we can learn about his compositional process. We’ll also learn why Brahms’ B major piano trio is the answer to a famous(in the classical music world) trivia question! Join us!",
+                    "preview": "https://traffic.libsyn.com/secure/stickynotespodcast/Brahms_B_Major_trioFINAL_-_7523_6.26_PM.mp3?dest-id=477278"
+                },
+                {
+                    "id": 1000618712243,
+                    "collectionId": 1215386938,
+                    "title": "Sibelius Violin Concerto",
+                    "date": "2023-06-29T06:20:00Z",
+                    "duration": 2882000,
+                    "description": "There’s a joke among classical musicians that the only parts of a piece that matter are the beginning, the end, and one place in the middle. I don’t think its something that anyone really believes in, but the value of the beginning of a piece in setting the scene cannot be ignored, and the absolutely stunning opening of the Sibelius violin concerto is no exception. A soft carpet of violins slowly oscillating between two notes sets up the entrance of the violinist, who over the course of the concerto will do just about everything a violin is capable of doing, all in a concerto of both eye-popping difficulty, but also heartwarming AND heartbreaking warmth, passion and character. There is often what is described as the “Big 5” of violin concerti, which includes the concerti of Tchaikovsky, Beethoven, Brahms, Mendelssohn. The Sibelius violin concerto is the only 20th century violin concerto that has found its way into the Big 5 and there’s a reason for it. All of those concerti synthesized the need for virtuosity with the imperative of writing truly great music. But to me, and this might be a controversial opinion, no one did it quite like Sibelius. We’ll hear all about the concerto, the circumstances that created its disastrous opening, and ask the question of what makes Sibelius such a distinctive composer, someone who sounds like no one else on earth.",
+                    "preview": "https://traffic.libsyn.com/secure/stickynotespodcast/sibelius_concertoWITHOUTAD_-_7123_3.22_PM.mp3?dest-id=477278"
+                },
+                {
+                    "id": 1000617937575,
+                    "collectionId": 1215386938,
+                    "title": "Ravel, Bolero + La Valse",
+                    "date": "2023-06-22T06:40:00Z",
+                    "duration": 3268000,
+                    "description": "Maurice Ravel the Magician, the Swiss Watchmaker, the aloof, the elegant, the precise, the soulful, the childlike, the naive, the warm, the radical, the progressive. These are all words that were used to describe a man of elegant contradictions throughout his life and into today. I talked a lot about Ravel’s skill with orchestration last week when we discussed Mussorgsky’s Pictures at an Exhibition, but Ravel's brilliance and creativity in terms of orchestral sound is absolutely unparalleled in musical history. But Ravel is somebody I’ve very rarely covered on the show, partly because he didn’t write very many large scale works that would cover a whole hour long episode. Well, it took 6 years for me to figure it out, but I realized a little while ago that I could cover two of Ravel’s shorter pieces and put them together on a double bill, so to speak. So today I’m going to tell you about Ravel’s most beloved and most despised piece, Bolero, and about my favorite piece of Ravel’s, La Valse. These are two pieces that could not be more different in their aims, in their constructions, and in their impacts on the audience. They are both thrillingly exciting, but in completely different ways. A good performance of Bolero should make you want to jump out of your seat with excitement, while a good performance of La Valse should terrify you to your core. Join us to learn all about it!",
+                    "preview": "https://traffic.libsyn.com/secure/stickynotespodcast/Ravelwithoutad_-_7123_3.27_PM.mp3?dest-id=477278"
+                },
+                {
+                    "id": 1000617100598,
+                    "collectionId": 1215386938,
+                    "title": "Mussorgsky, Pictures at an Exhibition",
+                    "date": "2023-06-15T05:34:00Z",
+                    "duration": 3530000,
+                    "description": "Have you ever been to an art museum and wished that you had music to accompany your experience? Music that made the art you were looking at more vivid, more immediate, and more emotionally intense? Well, Modest Mussorgsky’s Pictures at an Exhibition is the piece for you. Inspired by his late friend Victor Hartmann’s paintings and designs, Mussorgsky composed a series of 10 miniature pieces for piano based on Hartmann's works. Unlike many other collections of miniature pieces that have thematic or structural connections, Pictures at An Exhibition doesn’t feature that at all, keeping with Mussorgsky’s often rebellious ways as a composer. Instead, the music is connected by movements called Promenades, as if Mussorgsky literally walks you to the next painting at the exhibition. Mussorgsky’s remarkably imaginative piece is justly famous and often played by pianists, but what is perhaps the most fascinating thing about this piece is the creativity that it has inspired in other composers. Pictures at an Exhibition, or parts of it, has been arranged more than 50 times for any number of configurations of musicians. So today, we’re going to explore each picture in detail, talking about what Mussorgsky actually does to make these works of art come to life in such a compelling way. At the same time, we’re going to compare the original piano piece to some of the arrangements, focusing of course on the most famous of them all, the explosion of color that is Maurice Ravel’s arrangement. We’ll also talk about Mussorgsky himself, his compositional reputation at the time, and the brilliant creativity of this one of a kind piece.",
+                    "preview": "https://traffic.libsyn.com/secure/stickynotespodcast/Pictures_at_an_Exhibitionwithoutad_-_7123_3.33_PM.mp3?dest-id=477278"
+                }
+            ]
+        },
+        "1524940951": {
+            "podcastInfo": {
+                "id": "1524940951",
+                "title": "Indiecast - UPROXX",
+                "image": "https://is1-ssl.mzstatic.com/image/thumb/Podcasts114/v4/3e/a5/e1/3ea5e1dc-f9b7-2a49-e1ee-08d49ae2ea56/mza_12101578453560270651.jpeg/170x170bb.png",
+                "artist": "UPROXX",
+                "summary": "Indiecast is a weekly show from UPROXX Indie Mixtape hosted by music critics Steven Hyden and Ian Cohen. Every week, Hyden and Cohen discuss the biggest news and names in modern indie, as well as look back to moments that established the indie rock canon."
+            },
+            "episodes": [
+                {
+                    "id": 1000621897158,
+                    "collectionId": 1524940951,
+                    "title": "The First Ever Record Label Draft + Our Favorite Performances In Pitchfork Festival History",
+                    "date": "2023-07-21T14:30:00Z",
+                    "duration": 3763000,
+                    "description": "If you could start your own label, who would you sign? Steven and Ian weigh in with their picks.",
+                    "preview": "https://rss.art19.com/episodes/24495070-cba2-4f41-bb77-231486eba5ab.mp3?rss_browser=BAhJIglpVE1TBjoGRVQ%3D--4577cbcc3cc5282be318e551563630a2c5c2f06f"
+                },
+                {
+                    "id": 1000621120995,
+                    "collectionId": 1524940951,
+                    "title": "New Albums By Anohni + PJ Harvey, Artists Getting Hit In The Face At Shows, And Between-Song Banter Yay Or Nay",
+                    "date": "2023-07-14T07:00:00Z",
+                    "duration": 4009000,
+                    "description": "Steven and Ian also discuss artists getting hit in the face with random objects at shows and whether between-song banter is cool.",
+                    "preview": "https://rss.art19.com/episodes/d5f3d834-a9b0-4143-ae72-b8cd311c52b8.mp3?rss_browser=BAhJIglpVE1TBjoGRVQ%3D--4577cbcc3cc5282be318e551563630a2c5c2f06f"
+                },
+                {
+                    "id": 1000619769159,
+                    "collectionId": 1524940951,
+                    "title": "The Lost Episode",
+                    "date": "2023-07-07T07:00:00Z",
+                    "duration": 488000,
+                    "description": "There's no fresh, funny, and incisive commentary on Indiecast this week due to technical issues. But here's a rundown of what you would have heard.",
+                    "preview": "https://rss.art19.com/episodes/d04ab324-c4f5-419a-9048-bbc9a78c6d40.mp3?rss_browser=BAhJIglpVE1TBjoGRVQ%3D--4577cbcc3cc5282be318e551563630a2c5c2f06f"
+                },
+                {
+                    "id": 1000618844732,
+                    "collectionId": 1524940951,
+                    "title": "We Answer Listener Questions About Concert T-Shirts, Art Brut, And More",
+                    "date": "2023-06-30T07:00:00Z",
+                    "duration": 3696000,
+                    "description": "Steven and Ian hash out some important trends suggested by the audience.",
+                    "preview": "https://rss.art19.com/episodes/1a597a3c-a35d-4878-bd90-d00e0d21b0df.mp3?rss_browser=BAhJIglpVE1TBjoGRVQ%3D--4577cbcc3cc5282be318e551563630a2c5c2f06f"
+                },
+                {
+                    "id": 1000618065786,
+                    "collectionId": 1524940951,
+                    "title": "Revisiting The Albums Of 2013",
+                    "date": "2023-06-23T07:00:00Z",
+                    "duration": 4029000,
+                    "description": "Steven and Ian review the most notable work from one of the most notable recent years for music (2013).",
+                    "preview": "https://rss.art19.com/episodes/a656a1d3-a315-4b51-9e23-6505f88a0ccf.mp3?rss_browser=BAhJIglpVE1TBjoGRVQ%3D--4577cbcc3cc5282be318e551563630a2c5c2f06f"
+                }
+            ]
+        }
+    },
+    "expirationDate": null,
+    "searchTerm": "",
+    "_persist": {
+        "version": -1,
+        "rehydrated": true
+    }
+}

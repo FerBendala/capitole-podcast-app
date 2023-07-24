@@ -6,13 +6,9 @@ import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 
 import EpisodeDetail from '../../components/episode-detail/episode-detail'
+import data from '../json/data.json'
 
-const episodeDetailData = {
-    id: 1000607956287,
-    title: 'Episode 616 | \'To Whom It May Concern\'',
-    description: 'Hola mundo',
-    preview: 'https://traffic.libsyn.com/secure/jbpod/Joe_Budden_Podcast_616.mp3?dest-id=2422538'
-}
+const episodeDetailData = data.podcastDetail[1215386938].episodes[0]
 
 describe( 'Episode detail component', () => {
     test( 'Renders the correct episode detail', () => {
@@ -20,7 +16,7 @@ describe( 'Episode detail component', () => {
             <EpisodeDetail episodeDetail={episodeDetailData} />
         )
 
-        const [title, description] = [episodeDetailData.title, episodeDetailData.description]
+        const { title, description } = episodeDetailData
 
         const titleExists = component.getByText( title )
         const descriptionExists = screen.queryByText( parse( description ) )
@@ -46,7 +42,7 @@ describe( 'Episode detail component', () => {
     test( 'Renders default message when episodeDetail is empty', () => {
         const component = render( <EpisodeDetail /> )
         const defaultMessage = component.getByText(
-            'This episode don\'t have description'
+            'Episode not found.'
         )
 
         expect( defaultMessage ).toBeInTheDocument()

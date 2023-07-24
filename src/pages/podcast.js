@@ -13,7 +13,7 @@ import { isExpired } from '../utils/time-utils'
 import iTunesService from '../services/index'
 
 const Podcast = () => {
-    const { podcastId } = useParams() // Get podcast id from URL params
+    const { podcastId } = useParams()
     const { error, isLoading } = useSelector( ( state ) => state.global )
     const { podcastList, expirationDate } = useSelector( ( state ) => state.podcasts )
     const podcastDetail = useSelector( ( state ) => state.podcasts.podcastDetail[podcastId] )
@@ -22,8 +22,6 @@ const Podcast = () => {
 
 
     useEffect( () => {
-        console.log( podcastId )
-
         // Make a new API call if podcastDetail is empty or expirationDate is expired
         const checkDateAndData = !podcastDetail || isExpired( expirationDate )
 

@@ -7,7 +7,7 @@ import EpisodeDetail from '../components/episode-detail/episode-detail'
 import PodcastInfo from '../components/podcast-info/podcast-info'
 import { useEffect } from 'react'
 
-const Podcast = () => {
+const Episode = () => {
     const { podcastId, episodeId } = useParams() // Get podcast and episode id's from URL params
     const podcastDetail = useSelector( ( state ) => state.podcasts.podcastDetail[podcastId] )
 
@@ -21,7 +21,7 @@ const Podcast = () => {
     const podcastInfo = podcastDetail?.podcastInfo
 
     // Search episode into podcastDetail list
-    const filteredEpisode = podcastDetail.episodes.find( ( episode ) =>
+    const filteredEpisode = podcastDetail?.episodes?.find( ( episode ) =>
         Number( episode.id ) === Number( episodeId )
     )
 
@@ -33,4 +33,4 @@ const Podcast = () => {
     )
 }
 
-export default Podcast
+export default Episode
