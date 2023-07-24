@@ -7,7 +7,7 @@ import { render, fireEvent } from '@testing-library/react'
 
 import PodcastInfo from '../../components/podcast-info/podcast-info'
 
-const podcastInfoData = {
+let podcastInfoData = {
     id: 1535809341,
     title: 'The Joe Budden Podcast - The Joe Budden Network',
     image: 'https://is1-ssl.mzstatic.com/image/thumb/Podcasts113/v4/f2/21/fa/f221fabd-017f-5125-633b-f1fe4f39802a/mza_182995249085044287.jpg/170x170bb.png',
@@ -47,6 +47,17 @@ describe( 'Podcast info component', () => {
         const podcastLink = component.getByAltText( title ).closest( 'a' )
 
         expect( podcastLink ).toHaveAttribute( 'href', `/podcast/${id}` )
+    } )
+
+    test( 'Renders message for undefined podcastInfo', () => {
+        const component = render(
+            <BrowserRouter>
+                <PodcastInfo />
+            </BrowserRouter>
+        )
+
+        const message = component.getByText( 'This podcast don\'t have info' )
+        expect( message ).toBeInTheDocument()
     } )
 
     test( 'Clicking the podcast link *in image* navigates to correct podcast detail page', () => {
@@ -92,5 +103,30 @@ describe( 'Podcast info component', () => {
         fireEvent.click( podcastLink )
 
         expect( history.location.pathname ).toEqual( `/podcast/${id}` )
+    } )
+
+    test( 'Applies correct CSS classes', () => {
+        const component = render(
+            <BrowserRouter>
+                <PodcastInfo podcastInfo={podcastInfoData} />
+            </BrowserRouter>
+        )
+
+        const podcastInfo = component.getByTestId( 'podcast-info' )
+        const podcastTitle = component.getByText( podcastInfoData.title )
+        const podcastArtist = component.getByText( `by ${podcastInfoData.artist}` )
+        const podcastSummaryTitle = component.getByText( 'Description:' )
+        const podcastSummary = component.getByText( podcastInfoData.summary )
+
+        expect( podcastInfo ).toHaveClass( 'podcast-info' )
+        expect( podcastInfo.firstChild ).toHaveClass( 'podcast-info__image' )
+
+        expect( podcastTitle.parentElement ).toHaveClass( 'podcast-info__detail' )
+        expect( podcastTitle ).toHaveClass( 'podcast-info__detail__link' )
+        expect( podcastArtist ).toHaveClass( 'podcast-info__detail__artist' )
+
+        expect( podcastSummaryTitle.parentElement ).toHaveClass( 'podcast-info__description' )
+        expect( podcastSummaryTitle ).toHaveClass( 'podcast-info__description__title' )
+        expect( podcastSummary ).toHaveClass( 'podcast-info__description__text' )
     } )
 } )

@@ -12,6 +12,7 @@ const PodcastInfo = ( { podcastInfo = {} } ) => {
         <aside
             key={id}
             className='podcast-info'
+            data-testid='podcast-info'
         >
             <Link
                 to={`/podcast/${id}`}
