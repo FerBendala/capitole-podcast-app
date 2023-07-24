@@ -6,7 +6,7 @@ import '@testing-library/jest-dom'
 import { render } from '@testing-library/react'
 
 import EpisodeDetail from '../../components/episode-detail/episode-detail'
-import data from '../json/data.json'
+import data from '../utils/data.json'
 
 const episodeDetailData = data.podcastDetail[1215386938].episodes[0]
 

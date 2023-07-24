@@ -7,7 +7,7 @@ import '@testing-library/jest-dom'
 import { render, fireEvent } from '@testing-library/react'
 
 import PodcastEpisodes from '../../components/podcast-episodes/podcast-episodes'
-import data from '../json/data.json'
+import data from '../utils/data.json'
 
 const podcastEpisodesData = data.podcastDetail[1215386938].episodes
 const errorMessage = 'This podcast don\'t have episodes'

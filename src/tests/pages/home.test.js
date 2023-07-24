@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 
 import Home from '../../pages/home'
-import data from '../json/data.json'
+import data from '../utils/data.json'
 
 // Mock the Redux store
 const mockStore = configureStore( [] )

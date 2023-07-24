@@ -6,7 +6,7 @@ import '@testing-library/jest-dom'
 import { render, fireEvent } from '@testing-library/react'
 
 import PodcastsList from '../../components/podcasts-list/podcasts-list'
-import data from '../json/data.json'
+import data from '../utils/data.json'
 
 const podcastsListData = data.podcastList
 const errorMessage = 'No podcasts found. Please try again later or refresh the page.'
