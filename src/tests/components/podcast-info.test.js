@@ -14,6 +14,8 @@ let podcastInfoData = {
     artist: 'The Joe Budden Network',
     summary: 'Tune into Joe Budden and his friends. Follow along the crazy adventures of these very random friends.'
 }
+const errorMessage = 'This podcast don\'t have info'
+
 
 describe( 'Podcast info component', () => {
     test( 'Renders the podcast info', () => {
@@ -56,7 +58,7 @@ describe( 'Podcast info component', () => {
             </BrowserRouter>
         )
 
-        const message = component.getByText( 'This podcast don\'t have info' )
+        const message = component.getByText( errorMessage )
         expect( message ).toBeInTheDocument()
     } )
 

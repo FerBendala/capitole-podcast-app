@@ -45,7 +45,7 @@ const Home = () => {
             dispatch( setIsLoading( false ) )
         } catch ( error ) {
             dispatch( setIsLoading( false ) )
-            dispatch( setError( 'Failed to fetch podcast list. reload page and try again' ) )
+            dispatch( setError( 'Failed to fetch podcast list. Reload the page and try again.' ) )
         }
     }
 

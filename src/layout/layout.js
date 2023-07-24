@@ -20,6 +20,7 @@ const Layout = () => {
                         alt='loader'
                         title='loader'
                         className='header__loader'
+                        data-testid='loading-spinner'
                     />
                 )}
             </header >

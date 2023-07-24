@@ -13,7 +13,10 @@ const Filter = ( { resultsNumber, searchTerm, setSearchTerm, text } ) => {
     }
 
     return (
-        <div className='filter'>
+        <div
+            className='filter'
+            data-testid='filter'
+        >
             <span className='filter__results'>{resultsNumber}</span>
             <input
                 className='filter__input'

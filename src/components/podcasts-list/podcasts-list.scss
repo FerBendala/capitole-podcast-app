@@ -1,8 +1,8 @@
-@use '../../assets/scss/partials/variables.scss' as *;
-@use '../../assets/scss/partials/mixins.scss' as m;
-@use '../../assets/scss/partials/functions.scss' as f;
+@use "../../assets/scss/partials/variables.scss" as *;
+@use "../../assets/scss/partials/mixins.scss" as m;
+@use "../../assets/scss/partials/functions.scss" as f;
 
-.podcast-list {
+.podcasts-list {
     @include m.grid($gc: repeat(4, minmax(0, 1fr)), $gap: f.em(24));
 
     &__item {

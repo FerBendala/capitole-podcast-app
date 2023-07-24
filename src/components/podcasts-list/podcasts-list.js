@@ -5,16 +5,19 @@ const PodcastsList = ( { podcastsList = [] } ) => {
     const arrayIsntEmpty = Array.isArray( podcastsList ) && podcastsList.length > 0
 
     return (
-        <section className='podcast-list'>
+        <section
+            className='podcasts-list'
+            data-testid='podcasts-list'
+        >
             {arrayIsntEmpty
                 ? podcastsList.map( ( { id, title, image, artist } ) =>
                     <article
                         key={id}
-                        className='podcast-list__item'
+                        className='podcasts-list__item'
                     >
                         <Link
                             to={`/podcast/${id}`}
-                            className='podcast-list__item__link'
+                            className='podcasts-list__item__link'
                         >
                             <img
                                 src={image}

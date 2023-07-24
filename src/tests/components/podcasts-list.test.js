@@ -141,8 +141,8 @@ describe( 'Podcasts list component', () => {
         const podcastTitle = component.getByText( title )
         const podcastArtist = component.getByText( `Author: ${artist}` )
 
-        expect( podcastArticle ).toHaveClass( 'podcast-list__item' )
-        expect( podcastLink ).toHaveClass( 'podcast-list__item__link' )
+        expect( podcastArticle ).toHaveClass( 'podcasts-list__item' )
+        expect( podcastLink ).toHaveClass( 'podcasts-list__item__link' )
         expect( podcastImage ).toHaveClass( 'link__image' )
         expect( podcastTitle ).toHaveClass( 'link__title' )
         expect( podcastArtist ).toHaveClass( 'link__author' )

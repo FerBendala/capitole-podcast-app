@@ -22,6 +22,8 @@ const Podcast = () => {
 
 
     useEffect( () => {
+        console.log( podcastId )
+
         // Make a new API call if podcastDetail is empty or expirationDate is expired
         const checkDateAndData = !podcastDetail || isExpired( expirationDate )
 
