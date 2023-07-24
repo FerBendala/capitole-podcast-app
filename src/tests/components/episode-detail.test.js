@@ -3,7 +3,7 @@ import { createMemoryHistory } from 'history'
 import parse from 'html-react-parser'
 
 import '@testing-library/jest-dom'
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 
 import EpisodeDetail from '../../components/episode-detail/episode-detail'
 import data from '../json/data.json'
@@ -11,15 +11,19 @@ import data from '../json/data.json'
 const episodeDetailData = data.podcastDetail[1215386938].episodes[0]
 
 describe( 'Episode detail component', () => {
-    test( 'Renders the correct episode detail', () => {
-        const component = render(
+    let component
+
+    beforeEach( () => {
+        component = render(
             <EpisodeDetail episodeDetail={episodeDetailData} />
         )
+    } )
 
+    test( 'Renders the correct episode detail', () => {
         const { title, description } = episodeDetailData
 
         const titleExists = component.getByText( title )
-        const descriptionExists = screen.queryByText( parse( description ) )
+        const descriptionExists = component.queryByText( parse( description ) )
 
         expect( titleExists ).toBeInTheDocument()
         expect( descriptionExists ).toBeInTheDocument()
@@ -31,7 +35,7 @@ describe( 'Episode detail component', () => {
 
         history.push( `/episode/${id}` )
 
-        const component = render(
+        component.rerender(
             <EpisodeDetail episodeDetail={episodeDetailData} />
         )
         const titleExists = component.getByText( title )
@@ -40,7 +44,10 @@ describe( 'Episode detail component', () => {
     } )
 
     test( 'Renders default message when episodeDetail is empty', () => {
-        const component = render( <EpisodeDetail /> )
+        component.rerender(
+            <EpisodeDetail />
+        )
+
         const defaultMessage = component.getByText(
             'Episode not found.'
         )
@@ -49,10 +56,6 @@ describe( 'Episode detail component', () => {
     } )
 
     test( 'Renders the correct audio source', () => {
-        const component = render(
-            <EpisodeDetail episodeDetail={episodeDetailData} />
-        )
-
         const audioElement = component.getByTestId( 'audio-element' )
 
         expect( audioElement ).toBeInTheDocument()
@@ -60,10 +63,6 @@ describe( 'Episode detail component', () => {
     } )
 
     test( 'Applies correct CSS classes', () => {
-        const component = render(
-            <EpisodeDetail episodeDetail={episodeDetailData} />
-        )
-
         const { title, description } = episodeDetailData
 
         const episodeTitle = component.getByText( title )

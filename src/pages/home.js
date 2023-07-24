@@ -20,6 +20,7 @@ const Home = () => {
     useEffect( () => {
         // Make a new API call if podcastDetail is empty or expirationDate is expired
         const checkDateAndData = podcastList?.length === 0 || isExpired( expirationDate )
+        dispatch( setError( null ) )
 
         if ( checkDateAndData ) fetchData()
         else dispatch( setIsLoading( false ) )

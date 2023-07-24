@@ -13,16 +13,27 @@ const podcastEpisodesData = data.podcastDetail[1215386938].episodes
 const errorMessage = 'This podcast don\'t have episodes'
 
 describe( 'Podcast episodes component', () => {
-    test( 'Renders the episodes list table', () => {
-        const component = render(
+    let component
+
+    beforeEach( () => {
+        component = render(
             <BrowserRouter>
                 <PodcastEpisodes podcastEpisodes={podcastEpisodesData} />
             </BrowserRouter>
         )
+    } )
 
-        const [title, date, duration] = [podcastEpisodesData[0].title, podcastEpisodesData[0].date, podcastEpisodesData[0].duration]
+    test( 'Renders the episodes list table', () => {
+        const [title, date, duration] = [
+            podcastEpisodesData[0].title,
+            podcastEpisodesData[0].date,
+            podcastEpisodesData[0].duration
+        ]
 
-        const episodesNumberExists = component.getByText( `Episodes: ${podcastEpisodesData.length}` )
+        const episodesNumberExists = component.getByText(
+            `Episodes: ${podcastEpisodesData.length}`
+        )
+
         const titleExists = component.getByText( title )
         const dateExists = component.getByText( formatDate( date ) )
         const durationExists = component.getByText( formatMiliseconds( duration ) )
@@ -34,7 +45,7 @@ describe( 'Podcast episodes component', () => {
     } )
 
     test( 'Renders message for undefined podcastInfo', () => {
-        const component = render(
+        component.rerender(
             <BrowserRouter>
                 <PodcastEpisodes />
             </BrowserRouter>
@@ -45,13 +56,11 @@ describe( 'Podcast episodes component', () => {
     } )
 
     test( 'Renders the correct link to episode page', () => {
-        const component = render(
-            <BrowserRouter>
-                <PodcastEpisodes podcastEpisodes={podcastEpisodesData} />
-            </BrowserRouter>
-        )
-
-        const [id, collectionId, title] = [podcastEpisodesData[0].id, podcastEpisodesData[0].collectionId, podcastEpisodesData[0].title]
+        const [id, collectionId, title] = [
+            podcastEpisodesData[0].id,
+            podcastEpisodesData[0].collectionId,
+            podcastEpisodesData[0].title
+        ]
         const podcastLink = component.getByText( title )
 
         expect( podcastLink ).toHaveAttribute( 'href', `/podcast/${collectionId}/episode/${id}` )
@@ -59,13 +68,17 @@ describe( 'Podcast episodes component', () => {
 
     test( 'Clicking the episode link navigates to correct episode detail page', () => {
         const history = createMemoryHistory()
-        const component = render(
+        component.rerender(
             <Router location={history.location} navigator={history}>
                 <PodcastEpisodes podcastEpisodes={podcastEpisodesData} />
             </Router>
         )
 
-        const [id, collectionId, title] = [podcastEpisodesData[0].id, podcastEpisodesData[0].collectionId, podcastEpisodesData[0].title]
+        const [id, collectionId, title] = [
+            podcastEpisodesData[0].id,
+            podcastEpisodesData[0].collectionId,
+            podcastEpisodesData[0].title
+        ]
 
         const podcastLink = component.getByText( title )
         fireEvent.click( podcastLink )
@@ -74,12 +87,6 @@ describe( 'Podcast episodes component', () => {
     } )
 
     test( 'Applies correct CSS classes', () => {
-        const component = render(
-            <BrowserRouter>
-                <PodcastEpisodes podcastEpisodes={podcastEpisodesData} />
-            </BrowserRouter>
-        )
-
         const podcastEpisodes = component.getByTestId( 'podcast-episodes' )
 
         expect( podcastEpisodes ).toHaveClass( 'podcast-episodes' )
