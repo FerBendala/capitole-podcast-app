@@ -47,6 +47,6 @@ npm run test tests/{folder}/{file}.test.js
 
 ## Netlify
 If you want to see the deployed version on Netlify, you can visit the following URL:
-https://64bfe7810025060fa2fdf99c--animated-starburst-a9ca05.netlify.app/podcast/1460157002
+https://64c02d141030a5008e37a11b--animated-starburst-a9ca05.netlify.app/
 
 Happy podcast listening! 🎙️🎧
