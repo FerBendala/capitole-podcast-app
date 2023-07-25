@@ -36,6 +36,8 @@
     }
 
     &__loader {
+        @include m.position(relative, $b: f.em(8));
+        
         width: f.em(48);
     }
 }
@@ -47,5 +49,10 @@
 
     &__grid {
         @include m.grid($gc: minmax(0, 1fr) minmax(0, 3fr), $gap: f.em(24));
+
+        // Responsive
+        @include m.media(laptop) {
+            @include m.grid($gc: minmax(0, 1fr), $gap: f.em(24));
+        }
     }
 }

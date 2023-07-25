@@ -78,4 +78,34 @@
             word-break: break-word;
         }
     }
+
+    // Responsive
+    @include m.media(laptop) {
+        @include m.position(static);
+        @include m.grid($gc: minmax(0, 1fr) minmax(0, 2.5fr), $gap: 0 f.em(24));
+
+        &__image {
+            @include m.grid-child($grs: 1, $gre: 3);
+
+            height: auto;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+    }
+    @include m.media(tablet) {
+        &__image {
+            @include m.grid-child($grs: 1, $gre: 2);
+        }
+
+        &__detail {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        &__description {
+            display: none;
+        }
+    }
 }
