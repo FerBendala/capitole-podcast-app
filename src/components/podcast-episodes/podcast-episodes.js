@@ -3,7 +3,9 @@ import { formatDate, formatMiliseconds } from '../../utils/time-utils'
 import './podcast-episodes.scss'
 
 const PodcastEpisodes = ( { podcastEpisodes = [] } ) => {
+    // Check if the array is in the correct format and if it is empty
     const arrayIsntEmpty = Array.isArray( podcastEpisodes ) && podcastEpisodes.length > 0
+    const errorMessage = 'This podcast don\'t have episodes.'
 
     return (
         <div
@@ -43,9 +45,8 @@ const PodcastEpisodes = ( { podcastEpisodes = [] } ) => {
                         </table>
                     </div>
                 </>
-                : <p>This podcast don&apos;t have episodes</p>
+                : <p>{errorMessage}</p>
             }
-
         </div>
     )
 }

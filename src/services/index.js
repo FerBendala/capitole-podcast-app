@@ -22,7 +22,7 @@ const getAll = async () => {
     }
 }
 
-// Get episodes of a podcast by author id
+// Get episodes of a podcast by author id (max 100)
 // more info: https://performance-partners.apple.com/search-api
 const getById = async ( search ) => {
     try {

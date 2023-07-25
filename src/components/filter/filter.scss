@@ -1,6 +1,6 @@
-@use '../../assets/scss/partials/variables.scss' as *;
-@use '../../assets/scss/partials/mixins.scss' as m;
-@use '../../assets/scss/partials/functions.scss' as f;
+@use "../../assets/scss/partials/variables.scss" as *;
+@use "../../assets/scss/partials/mixins.scss" as m;
+@use "../../assets/scss/partials/functions.scss" as f;
 
 .filter {
     @include m.grid($gc: minmax(0, 2fr) minmax(0, 3fr), $gap: f.em(24));
@@ -26,6 +26,7 @@
         }
     }
 
+    // Badge with number of results
     &__results {
         @include m.flex($ai: center, $jc: center);
         @include m.flex-child($js: end);

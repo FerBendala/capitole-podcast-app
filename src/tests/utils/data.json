@@ -188,9 +188,5 @@
         }
     },
     "expirationDate": null,
-    "searchTerm": "",
-    "_persist": {
-        "version": -1,
-        "rehydrated": true
-    }
+    "searchTerm": ""
 }

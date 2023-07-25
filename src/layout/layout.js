@@ -4,6 +4,7 @@ import iconLoader from '../assets/images/icon-loading.svg'
 import './layout.scss'
 
 const Layout = () => {
+    // Get is loading from redux
     const isLoading = useSelector( ( state ) => state.global.isLoading )
 
     return (
@@ -14,6 +15,7 @@ const Layout = () => {
                         Podcaster
                     </Link>
                 </h1>
+                {/* Show image if the app is loading some content */}
                 {isLoading && (
                     <img
                         src={iconLoader}
@@ -25,6 +27,7 @@ const Layout = () => {
                 )}
             </header >
             <main className='main'>
+                {/* Load content */}
                 <Outlet />
             </main>
         </>

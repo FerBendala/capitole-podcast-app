@@ -1,7 +1,7 @@
-import { BrowserRouter } from 'react-router-dom' // Import BrowserRouter
+import { BrowserRouter } from 'react-router-dom'
 
 import '@testing-library/jest-dom'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
@@ -16,15 +16,15 @@ const mockStore = configureStore( [] )
 global.fetch = require( 'jest-fetch-mock' )
 
 describe( 'Home Component', () => {
-    let store
-    let component
-    let originalConsoleError
+    // Declare store, component, and app console.errors
+    let store, component, originalConsoleError
 
     beforeEach( () => {
         // Mock console.error to avoid actual logging during test execution
         originalConsoleError = console.error
         console.error = jest.fn()
 
+        // Set initial store and component before each test
         store = mockStore( {
             global: {
                 error: null,
@@ -52,20 +52,49 @@ describe( 'Home Component', () => {
         console.error = originalConsoleError
     } )
 
-    test( 'renders without errors', () => {
-        expect( screen.getByTestId( 'filter' ) ).toBeInTheDocument()
-        expect( screen.getByTestId( 'podcasts-list' ) ).toBeInTheDocument()
+    test( 'Render without errors', () => {
+        const filterTestId = screen.getByTestId( 'filter' )
+        const podcastListTestId = screen.getByTestId( 'podcasts-list' )
+
+        // Check if podcast list test id's are rended
+        expect( filterTestId ).toBeInTheDocument()
+        expect( podcastListTestId ).toBeInTheDocument()
     } )
 
-    test( 'renders the podcast list', () => {
-        expect( screen.getByText( data.podcastList[0].title ) ).toBeInTheDocument()
-        expect( screen.getByText( data.podcastList[1].title ) ).toBeInTheDocument()
+    test( 'Render the podcast list', () => {
+        const podcastList = data.podcastList
+
+        // Loop to check if podcasts are correct
+        for ( const podcast of podcastList ) {
+            // Check if title and author exists
+            const title = screen.getByText( podcast.title )
+            const author = screen.getByText( `Author: ${podcast.artist}` )
+
+            expect( title ).toBeInTheDocument()
+            expect( author ).toBeInTheDocument()
+        }
     } )
 
-    test( 'renders error message when an error occurs', () => {
+    test( 'Render the correct podcast list links', () => {
+        const podcastList = data.podcastList
+
+        // Loop to check if podcasts links are correct
+        for ( const podcast of podcastList ) {
+            // Check if link exists
+            const title = screen.getByText( podcast.title ).closest( 'a' )
+            const podcastLink = `/podcast/${podcast.id}`
+            expect( title ).toHaveAttribute( 'href', podcastLink )
+        }
+    } )
+
+    test( 'Render error message when an error occurs', () => {
+        // Set error message
+        const errorMessage = 'This is an error sample text.'
+
+        // Mock store with new error message and render component
         store = mockStore( {
             global: {
-                error: 'Failed to fetch podcast list. Reload the page and try again.',
+                error: errorMessage,
                 isLoading: false,
             },
             podcasts: {
@@ -84,12 +113,12 @@ describe( 'Home Component', () => {
             </Provider>
         )
 
-        expect(
-            screen.getByText( 'Failed to fetch podcast list. Reload the page and try again.' )
-        ).toBeInTheDocument()
+        // Check if error message is into content
+        expect( screen.getByText( errorMessage ) ).toBeInTheDocument()
     } )
 
-    test( 'handles error', () => {
+    test( 'Render message if no podcast found', () => {
+        // Mock empty values for podcast list data into store and render component
         store = mockStore( {
             global: {
                 error: null,
@@ -111,22 +140,35 @@ describe( 'Home Component', () => {
             </Provider>
         )
 
-        expect(
-            screen.getByText( 'No podcasts found. Please try again later or refresh the page.' )
-        ).toBeInTheDocument()
+        // Check if error message setted into component exists
+        const realComponentErrorMessage = 'No podcasts found. Please try again later or refresh the page.'
+        expect( screen.getByText( realComponentErrorMessage ) ).toBeInTheDocument()
     } )
 
-    test( 'displays only one result after search', () => {
+    test( 'Display only one result after search specific podcast *title*', () => {
+        const searchTerm = data.podcastList[0].title
         const inputField = screen.getByLabelText( 'search' )
-        fireEvent.change( inputField, { target: { value: 'the joe' } } )
+        fireEvent.change( inputField, { target: { value: searchTerm } } )
 
         const podcastItems = screen.getAllByTestId( 'podcasts-list' )
 
         expect( podcastItems.length ).toBe( 1 )
-        expect( podcastItems[0] ).toHaveTextContent( 'The Joe Budden Podcast - The Joe Budden Network' )
+        expect( podcastItems[0] ).toHaveTextContent( searchTerm )
     } )
 
-    test( 'fetches data when podcastList is empty', () => {
+    test( 'Display only one result after search specific podcast *artist*', () => {
+        const searchTerm = data.podcastList[0].artist
+        const inputField = screen.getByLabelText( 'search' )
+        fireEvent.change( inputField, { target: { value: searchTerm } } )
+
+        const podcastItems = screen.getAllByTestId( 'podcasts-list' )
+
+        expect( podcastItems.length ).toBe( 1 )
+        expect( podcastItems[0] ).toHaveTextContent( searchTerm )
+    } )
+
+    test( 'Fetch data when podcastList is empty', () => {
+        // Mock new store with empty and rerender component
         store = mockStore( {
             global: {
                 error: null,
@@ -148,11 +190,12 @@ describe( 'Home Component', () => {
             </Provider>
         )
 
+        // Verify that fetchData is called when podcast list is empty
         expect( global.fetch ).toHaveBeenCalled()
     } )
 
-    test( 'fetches data when expirationDate is expired', () => {
-        // Create a mock store with the initial state
+    test( 'Fetch data when expirationDate is expired', () => {
+        // Mock new store with expired expiration date and rerender component
         store = mockStore( {
             global: {
                 error: null,
@@ -174,12 +217,12 @@ describe( 'Home Component', () => {
             </Provider>
         )
 
-        // Verify that fetchData is called when the expirationDate is expired
+        // Verify that fetchData is called when expiration date is expired
         expect( global.fetch ).toHaveBeenCalled()
     } )
 
-    test( 'handles loading state correctly', async () => {
-        // Mock initial state of the store with an empty podcastDetail and isLoading set to true
+    test( 'handles loading state correctly', () => {
+        // Mock new store with empty podcastDetail and isLoading set to true
         store = mockStore( {
             global: {
                 error: null,
@@ -192,7 +235,7 @@ describe( 'Home Component', () => {
             },
         } )
 
-        // Render the Podcast component with the mock store and Router
+        // Rerender component
         component.rerender(
             <Provider store={store}>
                 <BrowserRouter>
@@ -201,12 +244,10 @@ describe( 'Home Component', () => {
             </Provider>
         )
 
-        // Expect loading state to be handled correctly (return null)
-        expect( screen.queryByText( 'Loading...' ) ).toBeNull()
-
-        // Wait for loading to complete (setIsLoading(false) in the useEffect hook)
-        await waitFor( () => {
-            expect( screen.queryByText( 'Loading...' ) ).toBeNull()
-        } )
+        // Check if podcast list test id's aren't rended
+        const filterTestId = screen.queryByTestId( 'filter' )
+        const podcastListTestId = screen.queryByTestId( 'podcasts-list' )
+        expect( filterTestId ).toBeNull()
+        expect( podcastListTestId ).toBeNull()
     } )
 } )

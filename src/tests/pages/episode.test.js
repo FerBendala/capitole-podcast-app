@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
 
 import '@testing-library/jest-dom'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
@@ -9,27 +9,30 @@ import configureStore from 'redux-mock-store'
 import Episode from '../../pages/episode'
 import data from '../utils/data.json'
 
+// Select podcast and episode from data json
+const podcastId = 1215386938
+const episodeId = 1000621766419
+
 // Mock the Redux store
 const mockStore = configureStore( [] )
 
-// Use node-fetch in the Node.js environment (tests)
-global.fetch = require( 'jest-fetch-mock' )
-
+// Mock useParams from react-router-dom
 jest.mock( 'react-router-dom', () => ( {
     ...jest.requireActual( 'react-router-dom' ),
-    useParams: jest.fn().mockReturnValue( { podcastId: '1215386938', episodeId: 1000621766419 } ),
+    useParams: jest
+        .fn()
+        .mockReturnValue( {
+            podcastId: podcastId,
+            episodeId: episodeId
+        } ),
 } ) )
 
 describe( 'Podcast Component', () => {
-    let store
-    let component
-    let originalConsoleError
+    // Declare store and component
+    let store, component
 
     beforeEach( () => {
-        // Mock console.error to avoid actual logging during test execution
-        originalConsoleError = console.error
-        console.error = jest.fn()
-
+        // Set initial store and component before each test
         store = mockStore( {
             global: {
                 error: null,
@@ -49,29 +52,23 @@ describe( 'Podcast Component', () => {
         )
     } )
 
-    afterEach( () => {
-        // Restore the original console.error after each test
-        console.error = originalConsoleError
+    test( 'Render correct content', () => {
+        const titleExists = screen.getByText( data.podcastDetail[podcastId].podcastInfo.title )
+        const artistExists = screen.getByText( `by ${data.podcastDetail[podcastId].podcastInfo.artist}` )
+        const detailTitleExists = screen.getByText( data.podcastDetail[podcastId].episodes[0].title )
+
+        // Check if podcast info is rended
+        expect( titleExists ).toBeInTheDocument()
+        expect( artistExists ).toBeInTheDocument()
+        // Check if episode detail is rended
+        expect( detailTitleExists ).toBeInTheDocument()
     } )
 
-    test( 'render correct content', () => {
-        // Podcast Info
-        expect( screen.getByText( data.podcastDetail[1215386938].podcastInfo.title ) ).toBeInTheDocument()
-        expect( screen.getByText( `by ${data.podcastDetail[1215386938].podcastInfo.artist}` ) ).toBeInTheDocument()
-
-        // Episode Detail
-        expect( screen.getByText( data.podcastDetail[1215386938].episodes[0].title ) ).toBeInTheDocument()
-    } )
-
-    test( 'handles loading state correctly', async () => {
-        // Mock initial state of the store with isLoading set to true
+    test( 'Render message for undefined podcastInfo', () => {
+        // Send empty podcastDetail and rerender component
         store = mockStore( {
-            global: {
-                isLoading: true,
-            },
-            podcasts: {
-                podcastDetail: data.podcastDetail,
-            },
+            global: { isLoading: false },
+            podcasts: { podcastDetail: [] }
         } )
 
         component.rerender(
@@ -82,42 +79,10 @@ describe( 'Podcast Component', () => {
             </Provider>
         )
 
-        // Expect loading state to be handled correctly (return null)
-        expect( screen.queryByText( 'Loading...' ) ).toBeNull()
-
-        // Wait for loading to complete (setIsLoading(false) in the useEffect hook)
-        await waitFor( () => {
-            expect( screen.queryByText( 'Loading...' ) ).toBeNull()
-        } )
-    } )
-
-    test( 'displays podcast and episode details', () => {
-        expect( screen.getByText( data.podcastDetail[1215386938].podcastInfo.title ) ).toBeInTheDocument()
-        expect( screen.getByText( data.podcastDetail[1215386938].episodes[0].title ) ).toBeInTheDocument()
-    } )
-
-    test( 'handles error when episode is not found', () => {
-        // Mock initial state of the store with isLoading set to false
-        store = mockStore( {
-            global: {
-                error: null,
-                isLoading: false,
-            },
-            podcasts: {
-                podcastDetail: {},
-            },
-        } )
-
-        // Render the Episode component with a non-existent episode ID
-        component.rerender(
-            <Provider store={store}>
-                <BrowserRouter>
-                    <Episode />
-                </BrowserRouter>
-            </Provider>
-        )
-
-        // Expect error message to be displayed when episode is not found
-        expect( screen.getByText( 'Episode not found.' ) ).toBeInTheDocument()
+        // Check if error message appears when content isn't loaded
+        const errorMessageForDetail = screen.queryByText( 'This podcast don\'t have info.' )
+        const errorMessageForEpisode = screen.queryByText( 'Episode not found.' )
+        expect( errorMessageForDetail ).toBeInTheDocument()
+        expect( errorMessageForEpisode ).toBeInTheDocument()
     } )
 } )

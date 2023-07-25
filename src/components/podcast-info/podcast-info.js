@@ -2,10 +2,16 @@ import { Link } from 'react-router-dom'
 import './podcast-info.scss'
 
 const PodcastInfo = ( { podcastInfo = {} } ) => {
+    // Get elements from podcastInfo
     const { id, image, title, artist, summary } = podcastInfo
 
-    if ( Object.keys( podcastInfo ).length === 0 || !id ) {
-        return <p>This podcast don&apos;t have info</p>
+    // Check if the pbject is in the correct format and if it is empty
+    const objectIsEmpty = Object.keys( podcastInfo ).length === 0 || !id
+    const errorMessage = 'This podcast don\'t have info.'
+
+    // Return error text if there are missing elements or if any element doesn't have an id
+    if ( objectIsEmpty ) {
+        return <p>{errorMessage}</p>
     }
 
     return (

@@ -4,10 +4,12 @@ import './filter.scss'
 const Filter = ( { resultsNumber, searchTerm, setSearchTerm, text } ) => {
     const [search, setSearch] = useState( searchTerm )
 
+    // Update search term state every time the search variable changes
     useEffect( () => {
         setSearchTerm( search )
     }, [search] )
 
+    // Update search on input
     const handleSearch = ( event ) => {
         setSearch( event.target.value )
     }

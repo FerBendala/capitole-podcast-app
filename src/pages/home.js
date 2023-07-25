@@ -12,13 +12,13 @@ import { isExpired } from '../utils/time-utils'
 import iTunesService from '../services/index'
 
 const Home = () => {
+    // Get podcastList and some data from redux
     const { error, isLoading } = useSelector( state => state.global )
     const { filteredPodcastList, podcastList, searchTerm, expirationDate } = useSelector( state => state.podcasts )
-
     const dispatch = useDispatch()
 
     useEffect( () => {
-        // Make a new API call if podcastDetail is empty or expirationDate is expired
+        // Check if podcastDetail is empty or expirationDate is expired
         const checkDateAndData = podcastList?.length === 0 || isExpired( expirationDate )
         dispatch( setError( null ) )
 
@@ -37,10 +37,12 @@ const Home = () => {
             const response = await iTunesService.getAll()
             const podcastsData = response
 
+            // Format and get data
             const podcastsModelData = podcastsListModel( podcastsData )
             dispatch( setFilteredPodcastList( podcastsModelData ) )
             dispatch( setPodcastList( podcastsModelData ) )
 
+            // Set expiration date
             const currentDate = Date.now()
             dispatch( setExpirationDate( currentDate ) )
             dispatch( setIsLoading( false ) )
@@ -50,7 +52,7 @@ const Home = () => {
         }
     }
 
-    // Handle search filter
+    // Handle search filter into the filteredPodcastList redux variable
     const handleSearch = ( data ) => {
         const filteredList = podcastList.filter( ( podcast ) =>
             podcast.title.toLowerCase().includes( data.toLowerCase() )
@@ -60,13 +62,13 @@ const Home = () => {
         dispatch( setSearchTerm( data ) )
     }
 
-    // Log error
+    // Return and log error if it occurs
     if ( error ) {
         console.error( error )
         return <p>{error}</p>
     }
 
-    // Early return
+    // Return empty content if app is loading
     if ( isLoading ) return null
 
     return (

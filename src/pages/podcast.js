@@ -13,16 +13,17 @@ import { isExpired } from '../utils/time-utils'
 import iTunesService from '../services/index'
 
 const Podcast = () => {
+    // Get podcast id from URL params
     const { podcastId } = useParams()
+
+    // Get podcast data and some other data from redux
     const { error, isLoading } = useSelector( ( state ) => state.global )
     const { podcastList, expirationDate } = useSelector( ( state ) => state.podcasts )
     const podcastDetail = useSelector( ( state ) => state.podcasts.podcastDetail[podcastId] )
-
     const dispatch = useDispatch()
 
-
     useEffect( () => {
-        // Make a new API call if podcastDetail is empty or expirationDate is expired
+        // Check if podcastDetail is empty or expirationDate is expired
         const checkDateAndData = !podcastDetail || isExpired( expirationDate )
 
         if ( checkDateAndData ) fetchData()
@@ -59,10 +60,11 @@ const Podcast = () => {
         return <p>{error}</p>
     }
 
+    // Return empty content if app is loading
     if ( isLoading ) return null
 
     return (
-        <section className='main__grid--in-layout'>
+        <section className='main__grid'>
             <PodcastInfo podcastInfo={podcastDetail?.podcastInfo} />
             <PodcastEpisodes podcastEpisodes={podcastDetail?.episodes} />
         </section>

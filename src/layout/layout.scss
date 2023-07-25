@@ -1,7 +1,8 @@
-@use '../assets/scss/partials/variables.scss' as *;
-@use '../assets/scss/partials/mixins.scss' as m;
-@use '../assets/scss/partials/functions.scss' as f;
+@use "../assets/scss/partials/variables.scss" as *;
+@use "../assets/scss/partials/mixins.scss" as m;
+@use "../assets/scss/partials/functions.scss" as f;
 
+// Header
 .header {
     @include m.container;
     @include m.flex($ai: center, $jc: space-between);
@@ -11,7 +12,6 @@
         bottom: f.em(32);
     }
 
-    ;
     border-bottom: solid f.em(1) $color-gray;
 
     &__title {
@@ -40,11 +40,12 @@
     }
 }
 
+// Main content
 .main {
     @include m.container;
     margin-bottom: f.em(80);
 
-    &__grid--in-layout {
+    &__grid {
         @include m.grid($gc: minmax(0, 1fr) minmax(0, 3fr), $gap: f.em(24));
     }
 }

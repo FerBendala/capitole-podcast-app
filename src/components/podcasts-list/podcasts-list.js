@@ -2,7 +2,9 @@ import { Link } from 'react-router-dom'
 import './podcasts-list.scss'
 
 const PodcastsList = ( { podcastsList = [] } ) => {
+    // Check if the array is in the correct format and if it is empty
     const arrayIsntEmpty = Array.isArray( podcastsList ) && podcastsList.length > 0
+    const errorMessage = 'No podcasts found. Please try again later or refresh the page.'
 
     return (
         <section
@@ -29,7 +31,7 @@ const PodcastsList = ( { podcastsList = [] } ) => {
                             <p className='link__author'>Author: {artist}</p>
                         </Link>
                     </article>
-                ) : <p>No podcasts found. Please try again later or refresh the page.</p>
+                ) : <p>{errorMessage}</p>
             }
         </section>
     )

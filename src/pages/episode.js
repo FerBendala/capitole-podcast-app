@@ -8,12 +8,15 @@ import PodcastInfo from '../components/podcast-info/podcast-info'
 import { useEffect } from 'react'
 
 const Episode = () => {
-    const { podcastId, episodeId } = useParams() // Get podcast and episode id's from URL params
-    const podcastDetail = useSelector( ( state ) => state.podcasts.podcastDetail[podcastId] )
+    // Get podcast and episode id's from URL params
+    const { podcastId, episodeId } = useParams()
 
+    // Get podcast detail data from redux
+    const podcastDetail = useSelector( ( state ) => state.podcasts.podcastDetail[podcastId] )
     const dispatch = useDispatch()
 
     useEffect( () => {
+        // Remove is loading state
         dispatch( setIsLoading( false ) )
     }, [] )
 
@@ -26,7 +29,7 @@ const Episode = () => {
     )
 
     return (
-        <section className='main__grid--in-layout'>
+        <section className='main__grid'>
             <PodcastInfo podcastInfo={podcastInfo} />
             <EpisodeDetail episodeDetail={filteredEpisode} />
         </section>

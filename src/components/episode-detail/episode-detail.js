@@ -2,10 +2,16 @@ import parse from 'html-react-parser' // to parse html data in description
 import './episode-detail.scss'
 
 const EpisodeDetail = ( { episodeDetail = {} } ) => {
+    // Get elements from episodeDetail
     const { id, title, description, preview } = episodeDetail
 
-    if ( Object.keys( episodeDetail ).length === 0 || !id ) {
-        return <p>Episode not found.</p>
+    // Check if the object is in the correct format and if it is empty
+    const objectIsEmpty = Object.keys( episodeDetail ).length === 0 || !id
+    const errorMessage = 'Episode not found.'
+
+    // Return error text if there are missing elements or if any element doesn't have an id
+    if ( objectIsEmpty ) {
+        return <p>{errorMessage}</p>
     }
 
     return (

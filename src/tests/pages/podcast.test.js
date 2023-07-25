@@ -1,13 +1,17 @@
 import { BrowserRouter } from 'react-router-dom'
 
 import '@testing-library/jest-dom'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 
 import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 
 import Podcast from '../../pages/podcast'
+import { formatDate, formatMiliseconds } from '../../utils/time-utils'
 import data from '../utils/data.json'
+
+// Select podcast and episode from data json
+const podcastId = 1215386938
 
 // Mock the Redux store
 const mockStore = configureStore( [] )
@@ -15,21 +19,26 @@ const mockStore = configureStore( [] )
 // Use node-fetch in the Node.js environment (tests)
 global.fetch = require( 'jest-fetch-mock' )
 
+// Mock useParams from react-router-dom
 jest.mock( 'react-router-dom', () => ( {
     ...jest.requireActual( 'react-router-dom' ),
-    useParams: jest.fn().mockReturnValue( { podcastId: '1215386938' } ),
+    useParams: jest
+        .fn()
+        .mockReturnValue( {
+            podcastId: podcastId
+        } ),
 } ) )
 
 describe( 'Podcast Component', () => {
-    let store
-    let component
-    let originalConsoleError
+    // Declare store, component, and app console.errors
+    let store, component, originalConsoleError
 
     beforeEach( () => {
         // Mock console.error to avoid actual logging during test execution
         originalConsoleError = console.error
         console.error = jest.fn()
 
+        // Set initial store and component before each test
         store = mockStore( {
             global: {
                 error: null,
@@ -41,9 +50,6 @@ describe( 'Podcast Component', () => {
                 expirationDate: null,
             },
         } )
-
-        // Mock the API response for iTunesService.getById
-        global.fetch.mockResponseOnce( JSON.stringify( data.podcastDetail ) )
 
         component = render(
             <Provider store={store}>
@@ -59,17 +65,64 @@ describe( 'Podcast Component', () => {
         console.error = originalConsoleError
     } )
 
-    test( 'render correct content', () => {
-        // Info
-        expect( screen.getByText( data.podcastDetail[1215386938].podcastInfo.title ) ).toBeInTheDocument()
-        expect( screen.getByText( `by ${data.podcastDetail[1215386938].podcastInfo.artist}` ) ).toBeInTheDocument()
+    test( 'Render correct info content', () => {
+        const titleExists = screen.getByText( data.podcastDetail[podcastId].podcastInfo.title )
+        const artistExists = screen.getByText( `by ${data.podcastDetail[podcastId].podcastInfo.artist}` )
 
-
-        // Episodes
-        expect( screen.getByText( data.podcastDetail[1215386938].episodes[0].title ) ).toBeInTheDocument()
+        // Check if podcast info is rended
+        expect( titleExists ).toBeInTheDocument()
+        expect( artistExists ).toBeInTheDocument()
     } )
 
-    test( 'fetches data when expirationDate is expired', () => {
+    test( 'Render correct episodes', () => {
+        // Set episodes
+        const episodes = data.podcastDetail[podcastId].episodes
+
+        // Loop to check if episodes are correct
+        for ( const episode of episodes ) {
+            // Check if title exists
+            const episodeTitleExists = screen.getByText( episode.title )
+            expect( episodeTitleExists ).toBeInTheDocument()
+
+            // Format date and duration to check if renders correctly
+            const dateExists = screen.getByText( formatDate( episode.date ) )
+            const durationExists = screen.getByText( formatMiliseconds( episode.duration ) )
+            expect( dateExists ).toBeInTheDocument()
+            expect( durationExists ).toBeInTheDocument()
+        }
+    } )
+
+    test( 'Render correct link episodes', () => {
+        // Set episodes
+        const episodes = data.podcastDetail[podcastId].episodes
+
+        // Loop to check if episodes are correct
+        for ( const episode of episodes ) {
+            // Check if link exists
+            const episodeTitleExists = screen.getByText( episode.title )
+            const episodeLink = `/podcast/${podcastId}/episode/${episode.id}`
+            expect( episodeTitleExists ).toHaveAttribute( 'href', episodeLink )
+        }
+    } )
+
+    test( 'Render correct table header with number of episodes', () => {
+        // Get elements from the component
+        const titleExists = screen.getByText( 'Title' )
+        const dateExists = screen.getByText( 'Date' )
+        const durationExists = screen.getByText( 'Duration' )
+
+        const numberOfEpisodes = data.podcastDetail[podcastId].episodes.length
+        const espisodesNumberExists = screen.getByText( `Episodes: ${numberOfEpisodes}` )
+
+        // Check if elements exists into component
+        expect( titleExists ).toBeInTheDocument()
+        expect( dateExists ).toBeInTheDocument()
+        expect( durationExists ).toBeInTheDocument()
+        expect( espisodesNumberExists ).toBeInTheDocument()
+    } )
+
+    test( 'Fetch data when expirationDate is expired', () => {
+        // Mock new store with expired expiration date
         store = mockStore( {
             global: {
                 error: null,
@@ -95,7 +148,7 @@ describe( 'Podcast Component', () => {
         expect( global.fetch ).toHaveBeenCalled()
     } )
 
-    test( 'handles error and logs error message', async () => {
+    test( 'Handle error and logs error message', () => {
         // Mock console.error to check if the error is logged
         console.error = jest.fn()
 
@@ -121,14 +174,12 @@ describe( 'Podcast Component', () => {
             </Provider>
         )
 
-        // Expect the error message to be displayed
+        // Expect the error message to be displayed and the error to be logged
         expect( screen.getByText( 'This podcast don\'t have info' ) ).toBeInTheDocument()
-
-        // Expect the error to be logged
         expect( console.error ).toHaveBeenCalledWith( 'This podcast don\'t have info' )
     } )
 
-    test( 'handles loading state correctly', async () => {
+    test( 'Not render podcast info while loading', () => {
         // Mock initial state of the store with an empty podcastDetail and isLoading set to true
         store = mockStore( {
             global: {
@@ -151,12 +202,10 @@ describe( 'Podcast Component', () => {
             </Provider>
         )
 
-        // Expect loading state to be handled correctly (return null)
-        expect( screen.queryByText( 'Loading...' ) ).toBeNull()
-
-        // Wait for loading to complete (setIsLoading(false) in the useEffect hook)
-        await waitFor( () => {
-            expect( screen.queryByText( 'Loading...' ) ).toBeNull()
-        } )
+        // Check if podcast info isn't rended
+        const titleNotExist = screen.queryByText( data.podcastDetail[podcastId].podcastInfo.title )
+        const artistNotExist = screen.queryByText( `by ${data.podcastDetail[podcastId].podcastInfo.artist}` )
+        expect( titleNotExist ).toBeNull()
+        expect( artistNotExist ).toBeNull()
     } )
 } )

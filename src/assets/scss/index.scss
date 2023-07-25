@@ -24,12 +24,11 @@ html {
             -moz-osx-font-smoothing: grayscale;
             -webkit-tap-highlight-color: transparent;
 
-            // Focus
+            // All focus
             &:focus {
                 outline: none;
             }
         }
-
 
         // Images
         img {
