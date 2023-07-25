@@ -1,4 +1,3 @@
-import React from 'react'
 import { BrowserRouter, Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 
@@ -10,7 +9,7 @@ import data from '../utils/data.json'
 
 // Get podcast list data from json & set error message
 const podcastsListData = data.podcastList
-const errorMessage = 'No podcasts found. Please try again later or refresh the page.'
+const errorMessage = 'No podcasts found.'
 
 describe( 'Podcasts list component', () => {
     // Declare component

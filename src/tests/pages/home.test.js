@@ -141,7 +141,7 @@ describe( 'Home Component', () => {
         )
 
         // Check if error message setted into component exists
-        const realComponentErrorMessage = 'No podcasts found. Please try again later or refresh the page.'
+        const realComponentErrorMessage = 'No podcasts found.'
         expect( screen.getByText( realComponentErrorMessage ) ).toBeInTheDocument()
     } )
 
